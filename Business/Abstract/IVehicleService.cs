@@ -13,7 +13,7 @@ namespace Business.Abstract
         void Add(Vehicle vehicle);
         void Delete(Vehicle vehicle);
         void Update(Vehicle vehicle);
-        List<Vehicle> GetAllUsers();
-        Vehicle GetOneUserById(int vehicleId);
+        List<Vehicle> GetAll();
+        Vehicle GetOneById(int vehicleId);
     }
 }

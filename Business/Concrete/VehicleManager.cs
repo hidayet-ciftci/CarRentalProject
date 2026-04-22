@@ -26,12 +26,12 @@ namespace Business.Concrete
             _vehicleDal.Delete(vehicle);
         }
 
-        public List<Vehicle> GetAllUsers()
+        public List<Vehicle> GetAll()
         {
             return _vehicleDal.GetAll();
         }
 
-        public Vehicle GetOneUserById(int vehicleId)
+        public Vehicle GetOneById(int vehicleId)
         {
             return _vehicleDal.GetOne(v => v.Id == vehicleId);
         }

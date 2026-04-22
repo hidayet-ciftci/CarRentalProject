@@ -12,7 +12,7 @@ namespace Business.Abstract
         void Add(ServiceRecord serviceRecord);
         void Delete(ServiceRecord serviceRecord);
         void Update(ServiceRecord serviceRecord);
-        List<ServiceRecord> GetAllUsers();
-        ServiceRecord GetOneUserById(int ServiceRecordId);
+        List<ServiceRecord> GetAll();
+        ServiceRecord GetOneById(int ServiceRecordId);
     }
 }

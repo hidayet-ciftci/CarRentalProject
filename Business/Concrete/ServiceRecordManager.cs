@@ -27,12 +27,12 @@ namespace Business.Concrete
             _serviceRecordDal.Delete(serviceRecord);
         }
 
-        public List<ServiceRecord> GetAllUsers()
+        public List<ServiceRecord> GetAll()
         {
             return _serviceRecordDal.GetAll();
         }
 
-        public ServiceRecord GetOneUserById(int ServiceRecordId)
+        public ServiceRecord GetOneById(int ServiceRecordId)
         {
             return _serviceRecordDal.GetOne(s => s.Id == ServiceRecordId);
         }

@@ -13,7 +13,7 @@ namespace Business.Abstract
         void Add(Customer customer);
         void Delete(Customer customer);
         void Update(Customer customer);
-        List<Customer> GetAllUsers();
-        Customer GetOneUserById(int customerId);
+        List<Customer> GetAll();
+        Customer GetOneById(int customerId);
     }
 }

@@ -27,12 +27,12 @@ namespace Business.Concrete
             _customerDal.Delete(customer);
         }
 
-        public List<Customer> GetAllUsers()
+        public List<Customer> GetAll()
         {
             return _customerDal.GetAll();
         }
 
-        public Customer GetOneUserById(int customerId)
+        public Customer GetOneById(int customerId)
         {
             return _customerDal.GetOne(c => c.Id == customerId);
         }
