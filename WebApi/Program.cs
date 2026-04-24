@@ -1,7 +1,10 @@
 using Business.Abstract;
 using Business.Concrete;
+using Business.ValidationRules.FluentValidation;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
+using Entities.Concrete;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +15,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<ICustomerService, CustomerManager>();
-builder.Services.AddSingleton<ICustomerDal, EfCustomerDal>();
+
+builder.Services.AddScoped<ICustomerService, CustomerManager>();
+builder.Services.AddScoped<IValidator<Customer>, CustomerValidator>();
+builder.Services.AddScoped<ICustomerDal, EfCustomerDal>();
+
 
 builder.Services.AddSingleton<IVehicleService, VehicleManager>();
 builder.Services.AddSingleton<IVehicleDal, EfVehicelDal>();
@@ -23,6 +29,8 @@ builder.Services.AddSingleton<IUserDal, EfUserDal>();
 
 builder.Services.AddSingleton<IServiceRecordService, ServiceRecordManager>();
 builder.Services.AddSingleton<IServiceRecordDal, EfServiceRecordDal>();
+
+
 
 var app = builder.Build();
 

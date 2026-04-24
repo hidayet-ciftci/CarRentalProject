@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,21 @@ namespace Business.Concrete
     {
         ICustomerDal _customerDal;
 
-        public CustomerManager(ICustomerDal customerDal)
+        private readonly IValidator<Customer> _validator;
+
+        public CustomerManager(ICustomerDal customerDal, IValidator<Customer> validator)
         {
             _customerDal = customerDal;
+            _validator = validator;
         }
         public void Add(Customer customer)
         {
+            var result = _validator.Validate(customer);
+            if (!result.IsValid)
+            {
+                var messages = string.Join(", ", result.Errors.Select(x => x.ErrorMessage));
+                throw new Exception(messages);
+            }
             _customerDal.Add(customer);
         }
 

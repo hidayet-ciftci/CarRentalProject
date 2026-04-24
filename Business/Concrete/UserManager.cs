@@ -33,7 +33,7 @@ namespace Business.Concrete
 
         public User GetOneById(int userId)
         {
-            return _userDal.GetOne(u => u.Id == userId);
+            return _userDal.GetOne(u => u.UserId == userId);
         }
 
         public void Update(User user)
