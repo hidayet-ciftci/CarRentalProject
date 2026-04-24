@@ -17,7 +17,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult getAll()
         {
-            List<Customer> customers=_customerService.GetAll().ToList();
+            var customers=_customerService.GetAll();
             return Ok(customers);
         }
         [HttpGet("getOneById")]

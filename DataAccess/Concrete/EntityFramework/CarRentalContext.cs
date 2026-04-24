@@ -13,11 +13,13 @@ namespace DataAccess.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=CarRental;Trusted_Connection=true")
+            optionsBuilder.UseNpgsql(
+            "Host=localhost;Port=5430;Database=carRental;Username=postgres;Password=123456"
+        );
         }
-        public DbSet<Customer> Customers;
-        public DbSet<Vehicle> Vehicles;
-        public DbSet<ServiceRecord> ServiceRecords;
-        public DbSet<User> Users;
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<ServiceRecord> ServiceRecords { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

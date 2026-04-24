@@ -34,7 +34,7 @@ namespace Business.Concrete
 
         public Customer GetOneById(int customerId)
         {
-            return _customerDal.GetOne(c => c.Id == customerId);
+            return _customerDal.GetOne(c => c.CustomerId == customerId);
         }
 
         public void Update(Customer customer)

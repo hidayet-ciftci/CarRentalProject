@@ -33,15 +33,11 @@ namespace Core.DataAccess.EfRepositoryContext
             }
         }
 
-        public List<TEntity> GetAll(Expression<Func<TEntity, bool>> filter = null)
+        public List<TEntity> GetAll()
         {
             using (TContext context = new TContext())
             {
-                if (filter is null)
-                {
-                    return context.Set<TEntity>().ToList();
-                }
-                else return context.Set<TEntity>().Where(filter).ToList();
+                return context.Set<TEntity>().ToList();    
             }
         }
 

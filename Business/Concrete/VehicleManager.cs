@@ -33,7 +33,7 @@ namespace Business.Concrete
 
         public Vehicle GetOneById(int vehicleId)
         {
-            return _vehicleDal.GetOne(v => v.Id == vehicleId);
+            return _vehicleDal.GetOne(v => v.VehicleId == vehicleId);
         }
 
         public void Update(Vehicle vehicle)

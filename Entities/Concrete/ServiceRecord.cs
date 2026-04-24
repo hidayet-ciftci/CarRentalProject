@@ -9,7 +9,7 @@ namespace Entities.Concrete
 {
     public class ServiceRecord : IEntity
     {
-        public int Id { get; set; }
+        public int ServiceRecordId { get; set; }
         public int VehicleId { get; set; }
         public int CustomerId { get; set; }
         public string Description { get; set; }

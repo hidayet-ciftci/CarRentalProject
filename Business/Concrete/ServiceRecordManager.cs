@@ -34,7 +34,7 @@ namespace Business.Concrete
 
         public ServiceRecord GetOneById(int ServiceRecordId)
         {
-            return _serviceRecordDal.GetOne(s => s.Id == ServiceRecordId);
+            return _serviceRecordDal.GetOne(s => s.ServiceRecordId == ServiceRecordId);
         }
 
         public void Update(ServiceRecord serviceRecord)

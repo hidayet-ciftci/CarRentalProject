@@ -15,7 +15,7 @@ namespace Core.DataAccess
         void Delete(T entity);
         void Update(T entity);
 
-        List<T> GetAll(Expression<Func<T, bool>> filter=null);
+        List<T> GetAll();
 
         T GetOne(Expression<Func<T,bool>> filter);
     }
