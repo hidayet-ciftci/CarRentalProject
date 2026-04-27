@@ -84,5 +84,19 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [HttpGet("GetDetail")]
+        public IActionResult GetDetail()
+        {
+            try
+            {
+                var result = _customerService.GetCustomerDetail();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
