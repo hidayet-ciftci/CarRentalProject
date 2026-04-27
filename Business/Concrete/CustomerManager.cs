@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -26,10 +27,16 @@ namespace Business.Concrete
         }
         public IResult Add(Customer customer)
         {
-            var result = _validator.Validate(customer);
-            if (!result.IsValid)
+            //business Codes
+            IResult result = BusinessRules.Run(checkCustomerExist(customer.CustomerId), checkPhoneNumExist(customer.PhoneNumber),checkEmailExist(customer.Email), checkCustomerNum());
+           if (result != null)
             {
-                var messages = string.Join(", ", result.Errors.Select(x => x.ErrorMessage));
+                return result;
+            }
+            var ValidateResult = _validator.Validate(customer);
+            if (!ValidateResult.IsValid)
+            {
+                var messages = string.Join(", ", ValidateResult.Errors.Select(x => x.ErrorMessage));
                 return new ErrorResult(messages);
             }
             _customerDal.Add(customer);
@@ -66,6 +73,42 @@ namespace Business.Concrete
         public IDataResult<List<CustomerDetailDto>> GetCustomerDetail()
         {
             return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetail(),Messages.ApiListed);
+        }
+        private IResult checkCustomerNum()
+        {
+            var customerNum = _customerDal.GetAll().Count;
+            if (customerNum > 15)
+            {
+                return new ErrorResult("15 limite ulasildi");
+            }
+            else return new SuccessResult();
+        }
+        private IResult checkCustomerExist(int id)
+        {
+            var entityCheck = _customerDal.GetOne(c=>c.CustomerId==id);
+            if (entityCheck is null)
+            {
+                return new SuccessResult();
+            }
+            else return new ErrorResult("Boyle bir customer Id zaten var");
+        }
+        private IResult checkEmailExist(string email)
+        {
+            var emailCheck = _customerDal.GetOne(c => c.Email == email);
+            if (emailCheck is null)
+            {
+                return new SuccessResult();
+            }
+            else return new ErrorResult("Boyle bir customer Email zaten var");
+        }
+        private IResult checkPhoneNumExist(string phoneNum)
+        {
+            var phoneCheck = _customerDal.GetOne(c => c.PhoneNumber == phoneNum);
+            if (phoneCheck is null)
+            {
+                return new SuccessResult();
+            }
+            else return new ErrorResult("Boyle bir customer telefon numarası zaten var");
         }
     }
 }

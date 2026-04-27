@@ -13,7 +13,7 @@ namespace Business.ValidationRules.FluentValidation
         public CustomerValidator()
         {
             RuleFor(c => c.Email).Must(Includes).WithMessage("Email Must have @ ");
-            RuleFor(c => c.PhoneNumber).MinimumLength(9);
+            RuleFor(c => c.PhoneNumber).MinimumLength(5);
         }
         private bool Includes(string args)
         {

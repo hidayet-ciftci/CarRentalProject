@@ -1,10 +1,14 @@
 using Business.Abstract;
 using Business.Concrete;
 using Business.ValidationRules.FluentValidation;
+using Core.DependencyResolvers;
+using Core.Extensions;
+using Core.Utilities.IoC;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,21 +20,24 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddScoped<ICustomerService, CustomerManager>();
-builder.Services.AddScoped<IValidator<Customer>, CustomerValidator>();
-builder.Services.AddScoped<ICustomerDal, EfCustomerDal>();
+//builder.Services.AddScoped<ICustomerService, CustomerManager>();
+//builder.Services.AddScoped<IValidator<Customer>, CustomerValidator>();
+//builder.Services.AddScoped<ICustomerDal, EfCustomerDal>();
 
 
-builder.Services.AddSingleton<IVehicleService, VehicleManager>();
-builder.Services.AddSingleton<IVehicleDal, EfVehicelDal>();
+//builder.Services.AddSingleton<IVehicleService, VehicleManager>();
+//builder.Services.AddSingleton<IVehicleDal, EfVehicelDal>();
 
-builder.Services.AddSingleton<IUserService, UserManager>();
-builder.Services.AddSingleton<IUserDal, EfUserDal>();
+//builder.Services.AddSingleton<IUserService, UserManager>();
+//builder.Services.AddSingleton<IUserDal, EfUserDal>();
 
-builder.Services.AddSingleton<IServiceRecordService, ServiceRecordManager>();
-builder.Services.AddSingleton<IServiceRecordDal, EfServiceRecordDal>();
+//builder.Services.AddSingleton<IServiceRecordService, ServiceRecordManager>();
+//builder.Services.AddSingleton<IServiceRecordDal, EfServiceRecordDal>();
 
-
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+{
+    new CoreModule()
+});
 
 var app = builder.Build();
 
