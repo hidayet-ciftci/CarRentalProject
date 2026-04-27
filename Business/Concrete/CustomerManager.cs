@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using FluentValidation;
@@ -21,35 +23,43 @@ namespace Business.Concrete
             _customerDal = customerDal;
             _validator = validator;
         }
-        public void Add(Customer customer)
+        public IResult Add(Customer customer)
         {
             var result = _validator.Validate(customer);
             if (!result.IsValid)
             {
                 var messages = string.Join(", ", result.Errors.Select(x => x.ErrorMessage));
-                throw new Exception(messages);
+                return new ErrorResult(messages);
             }
             _customerDal.Add(customer);
+            return new SuccessResult(Messages.ApiAdded);
         }
 
-        public void Delete(Customer customer)
+        public IResult Delete(Customer customer)
         {
             _customerDal.Delete(customer);
+            return new SuccessResult(Messages.ApiDeleted);
         }
 
-        public List<Customer> GetAll()
+        public IDataResult<List<Customer>> GetAll()
         {
-            return _customerDal.GetAll();
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(),Messages.ApiListed);
         }
 
-        public Customer GetOneById(int customerId)
+        public IDataResult<Customer> GetOneById(int customerId)
         {
-            return _customerDal.GetOne(c => c.CustomerId == customerId);
+            var entity = _customerDal.GetOne(c => c.CustomerId == customerId);
+            if (entity is null)
+            {
+                return new ErrorDataResult<Customer>(entity,Messages.NotFound);
+            }   
+            return new SuccessDataResult<Customer>(entity,Messages.ApiListed);
         }
 
-        public void Update(Customer customer)
+        public IResult Update(Customer customer)
         {
             _customerDal.Update(customer);
+            return new SuccessResult(Messages.ApiUpdated);
         }
     }
 }

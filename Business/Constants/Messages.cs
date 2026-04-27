@@ -13,5 +13,6 @@ namespace Business.Constants
         public static string ApiUpdated = "Liste Guncellendi";
         public static string ApiListed = "Bilgiler Listelendi";
         public static string ErrorOccured = "Hata meydana geldi";
+        public static string NotFound = "Bulunamadi";
     }
 }

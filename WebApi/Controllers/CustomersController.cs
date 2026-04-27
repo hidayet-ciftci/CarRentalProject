@@ -17,32 +17,72 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult getAll()
         {
-            var customers=_customerService.GetAll();
-            return Ok(customers);
+            try
+            {
+                var customers = _customerService.GetAll();
+                return Ok(customers);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
         [HttpGet("getOneById")]
         public IActionResult getOnebyId(int id)
         {
-            Customer customer = _customerService.GetOneById(id);
-            return Ok(customer);
+            try
+            {
+                var customer = _customerService.GetOneById(id);
+                return Ok(customer);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
         [HttpPost]
         public IActionResult Add(Customer customer)
         {
-            _customerService.Add(customer);
-            return Ok();
+            try
+            {
+                var result = _customerService.Add(customer);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
         [HttpDelete]
         public IActionResult Delete(Customer customer)
         {
-            _customerService.Delete(customer);
-            return Ok();
+            try
+            {
+                var result = _customerService.Delete(customer);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
         [HttpPut]
         public IActionResult Update(Customer customer)
         {
-            _customerService.Update(customer);
-            return Ok();
+            try
+            {
+                var result = _customerService.Update(customer);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
