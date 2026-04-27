@@ -18,32 +18,77 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult getAll()
         {
-            List<Vehicle> vehicles = _vehicleService.GetAll().ToList();
-            return Ok(vehicles);
+            try
+            {
+
+                var result = _vehicleService.GetAll();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
         [HttpGet("getOneById")]
         public IActionResult getOnebyId(int id)
         {
-            Vehicle vehicle = _vehicleService.GetOneById(id);
-            return Ok(vehicle);
+            try
+            {
+
+                var result = _vehicleService.GetOneById(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
         [HttpPost]
         public IActionResult Add(Vehicle vehicle)
         {
-            _vehicleService.Add(vehicle);
-            return Ok();
+            try
+            {
+
+                var result = _vehicleService.Add(vehicle);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
         [HttpDelete]
         public IActionResult Delete(Vehicle vehicle)
         {
-            _vehicleService.Delete(vehicle);
-            return Ok();
+            try
+            {
+
+                var result = _vehicleService.Delete(vehicle);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
         [HttpPut]
         public IActionResult Update(Vehicle vehicle)
         {
-            _vehicleService.Update(vehicle);
-            return Ok();
+            try
+            {
+
+                var result = _vehicleService.Update(vehicle);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

@@ -17,32 +17,74 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult getAll()
         {
-            List<ServiceRecord> serviceRecords = _serviceRecordService.GetAll().ToList();
-            return Ok(serviceRecords);
+            try
+            {
+                var results = _serviceRecordService.GetAll();
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
         [HttpGet("getOneById")]
         public IActionResult getOnebyId(int id)
         {
-            ServiceRecord serviceRecord = _serviceRecordService.GetOneById(id);
-            return Ok(serviceRecord);
+            try
+            {
+                var result = _serviceRecordService.GetOneById(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         [HttpPost]
         public IActionResult Add(ServiceRecord serviceRecord)
         {
-            _serviceRecordService.Add(serviceRecord);
-            return Ok();
+            try
+            {
+
+                var result = _serviceRecordService.Add(serviceRecord);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
         [HttpDelete]
         public IActionResult Delete(ServiceRecord serviceRecord)
         {
-            _serviceRecordService.Delete(serviceRecord);
-            return Ok();
+            try
+            {
+
+                var result = _serviceRecordService.Delete(serviceRecord);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
         [HttpPut]
         public IActionResult Update(ServiceRecord serviceRecord)
         {
-            _serviceRecordService.Update(serviceRecord);
-            return Ok();
+            try
+            {
+
+                var result = _serviceRecordService.Update(serviceRecord);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

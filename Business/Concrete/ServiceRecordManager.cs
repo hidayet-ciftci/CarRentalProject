@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -17,29 +19,32 @@ namespace Business.Concrete
         {
             _serviceRecordDal = serviceRecordDal;
         }
-        public void Add(ServiceRecord serviceRecord)
+        public IResult Add(ServiceRecord serviceRecord)
         {
             _serviceRecordDal.Add(serviceRecord);
+            return new SuccessResult(Messages.ApiAdded);
         }
 
-        public void Delete(ServiceRecord serviceRecord)
+        public IResult Delete(ServiceRecord serviceRecord)
         {
             _serviceRecordDal.Delete(serviceRecord);
+            return new SuccessResult(Messages.ApiDeleted);
         }
 
-        public List<ServiceRecord> GetAll()
+        public IDataResult<List<ServiceRecord>> GetAll()
         {
-            return _serviceRecordDal.GetAll();
+            return new SuccessDataResult<List<ServiceRecord>>(_serviceRecordDal.GetAll(),Messages.ApiListed);
         }
 
-        public ServiceRecord GetOneById(int ServiceRecordId)
+        public IDataResult<ServiceRecord> GetOneById(int ServiceRecordId)
         {
-            return _serviceRecordDal.GetOne(s => s.ServiceRecordId == ServiceRecordId);
+            return new SuccessDataResult<ServiceRecord>(_serviceRecordDal.GetOne(s => s.ServiceRecordId == ServiceRecordId),Messages.ApiListed);
         }
 
-        public void Update(ServiceRecord serviceRecord)
+        public IResult Update(ServiceRecord serviceRecord)
         {
             _serviceRecordDal.Update(serviceRecord);
+            return new SuccessResult(Messages.ApiUpdated);
         }
     }
 }

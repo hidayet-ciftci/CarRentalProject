@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,29 +18,32 @@ namespace Business.Concrete
         {
             _vehicleDal = vehicleDal;
         }
-        public void Add(Vehicle vehicle)
+        public IResult Add(Vehicle vehicle)
         {
             _vehicleDal.Add(vehicle);
+            return new SuccessResult(Messages.ApiAdded);
         }
 
-        public void Delete(Vehicle vehicle)
+        public IResult Delete(Vehicle vehicle)
         {
             _vehicleDal.Delete(vehicle);
+            return new SuccessResult(Messages.ApiDeleted);
         }
 
-        public List<Vehicle> GetAll()
+        public IDataResult<List<Vehicle>> GetAll()
         {
-            return _vehicleDal.GetAll();
+            return new SuccessDataResult<List<Vehicle>>(_vehicleDal.GetAll(),Messages.ApiListed);
         }
 
-        public Vehicle GetOneById(int vehicleId)
+        public IDataResult<Vehicle> GetOneById(int vehicleId)
         {
-            return _vehicleDal.GetOne(v => v.VehicleId == vehicleId);
+            return new SuccessDataResult<Vehicle>(_vehicleDal.GetOne(v => v.VehicleId == vehicleId),Messages.ApiListed);
         }
 
-        public void Update(Vehicle vehicle)
+        public IResult Update(Vehicle vehicle)
         {
             _vehicleDal.Update(vehicle);
+            return new SuccessResult(Messages.ApiUpdated);
         }
     }
 }

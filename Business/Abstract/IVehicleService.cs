@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Concrete;
+using Core.Utilities.Results;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,10 @@ namespace Business.Abstract
 {
     public interface IVehicleService
     {
-        void Add(Vehicle vehicle);
-        void Delete(Vehicle vehicle);
-        void Update(Vehicle vehicle);
-        List<Vehicle> GetAll();
-        Vehicle GetOneById(int vehicleId);
+        IResult Add(Vehicle vehicle);
+        IResult Delete(Vehicle vehicle);
+        IResult Update(Vehicle vehicle);
+        IDataResult<List<Vehicle>> GetAll();
+        IDataResult<Vehicle> GetOneById(int vehicleId);
     }
 }

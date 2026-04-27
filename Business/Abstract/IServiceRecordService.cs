@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Utilities.Results;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace Business.Abstract
 {
     public interface IServiceRecordService
     {
-        void Add(ServiceRecord serviceRecord);
-        void Delete(ServiceRecord serviceRecord);
-        void Update(ServiceRecord serviceRecord);
-        List<ServiceRecord> GetAll();
-        ServiceRecord GetOneById(int ServiceRecordId);
+        IResult Add(ServiceRecord serviceRecord);
+        IResult Delete(ServiceRecord serviceRecord);
+        IResult Update(ServiceRecord serviceRecord);
+        IDataResult<List<ServiceRecord>> GetAll();
+        IDataResult<ServiceRecord> GetOneById(int ServiceRecordId);
     }
 }

@@ -18,32 +18,74 @@ namespace WebAPI.Controllers
         [HttpGet]
         public IActionResult getAll()
         {
-            List<User> users = _userService.GetAll().ToList();
-            return Ok(users);
+            try
+            {
+
+                var result = _userService.GetAll();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
         [HttpGet("getOneById")]
         public IActionResult getOnebyId(int id)
         {
-            User user = _userService.GetOneById(id);
-            return Ok(user);
+            try
+            {
+
+                var result = _userService.GetOneById(id);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         [HttpPost]
         public IActionResult Add(User user)
         {
-            _userService.Add(user);
-            return Ok();
+            try
+            {
+                var result = _userService.Add(user);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
         [HttpDelete]
         public IActionResult Delete(User user)
         {
-            _userService.Delete(user);
-            return Ok();
+            try
+            {
+
+                var result = _userService.Delete(user);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                var result = _userService.Add(user);
+                return Ok(result);
+            }
         }
         [HttpPut]
         public IActionResult Update(User user)
         {
-            _userService.Update(user);
-            return Ok();
+            try
+            {
+
+                var result = _userService.Update(user);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Entities.Concrete;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using System;
 using System.Collections.Generic;
@@ -16,29 +18,33 @@ namespace Business.Concrete
         {
             _userDal = userDal;
         }
-        public void Add(User user)
+        public IResult Add(User user)
         {
             _userDal.Add(user);
+            return new SuccessResult(Messages.ApiAdded);
+
         }
 
-        public void Delete(User user)
+        public IResult Delete(User user)
         {
             _userDal.Delete(user);
+            return new SuccessResult(Messages.ApiDeleted);
         }
 
-        public List<User> GetAll()
+        public IDataResult<List<User>> GetAll()
         {
-            return _userDal.GetAll();
+            return new SuccessDataResult<List<User>>(_userDal.GetAll(),Messages.ApiListed);
         }
 
-        public User GetOneById(int userId)
+        public IDataResult<User> GetOneById(int userId)
         {
-            return _userDal.GetOne(u => u.UserId == userId);
+            return new SuccessDataResult<User>(_userDal.GetOne(u => u.UserId == userId),Messages.ApiListed);
         }
 
-        public void Update(User user)
+        public IResult Update(User user)
         {
             _userDal.Update(user);
+            return new SuccessResult(Messages.ApiUpdated);
         }
     }
 }
