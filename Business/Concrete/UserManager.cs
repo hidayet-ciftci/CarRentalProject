@@ -1,8 +1,10 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Core.Entities.Concrete;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +27,15 @@ namespace Business.Concrete
 
         }
 
-        public IResult Delete(User user)
+        public IResult Delete(int id)
         {
-            _userDal.Delete(user);
+            //business Codes
+            IResult result = BusinessRules.Run(checkCustomerNotExist(id));
+            if (result != null)
+            {
+                return result;
+            }
+            _userDal.Delete(id);
             return new SuccessResult(Messages.ApiDeleted);
         }
 
@@ -45,6 +53,16 @@ namespace Business.Concrete
         {
             _userDal.Update(user);
             return new SuccessResult(Messages.ApiUpdated);
+        }
+
+        private IResult checkCustomerNotExist(int id)
+        {
+            var entityCheck = _userDal.GetOne(u => u.UserId== id);
+            if (entityCheck is null)
+            {
+                return new ErrorResult("Boyle bir Service Record yok");
+            }
+            else return new SuccessResult();
         }
     }
 }

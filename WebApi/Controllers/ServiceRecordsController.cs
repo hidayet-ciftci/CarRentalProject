@@ -57,12 +57,12 @@ namespace WebAPI.Controllers
             }
         }
         [HttpDelete]
-        public IActionResult Delete(ServiceRecord serviceRecord)
+        public IActionResult Delete(int id)
         {
             try
             {
 
-                var result = _serviceRecordService.Delete(serviceRecord);
+                var result = _serviceRecordService.Delete(id);
                 return Ok(result);
             }
             catch (Exception ex)

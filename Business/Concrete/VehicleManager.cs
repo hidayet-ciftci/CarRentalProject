@@ -1,7 +1,9 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -24,9 +26,15 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ApiAdded);
         }
 
-        public IResult Delete(Vehicle vehicle)
+        public IResult Delete(int id)
         {
-            _vehicleDal.Delete(vehicle);
+            //business Codes
+            IResult result = BusinessRules.Run(checkCustomerNotExist(id));
+            if (result != null)
+            {
+                return result;
+            }
+            _vehicleDal.Delete(id);
             return new SuccessResult(Messages.ApiDeleted);
         }
 
@@ -44,6 +52,15 @@ namespace Business.Concrete
         {
             _vehicleDal.Update(vehicle);
             return new SuccessResult(Messages.ApiUpdated);
+        }
+        private IResult checkCustomerNotExist(int id)
+        {
+            var entityCheck = _vehicleDal.GetOne(v => v.VehicleId == id);
+            if (entityCheck is null)
+            {
+                return new ErrorResult("Boyle bir customer yok");
+            }
+            else return new SuccessResult();
         }
     }
 }

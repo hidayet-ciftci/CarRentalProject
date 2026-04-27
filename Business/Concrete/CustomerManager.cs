@@ -43,9 +43,15 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ApiAdded);
         }
 
-        public IResult Delete(Customer customer)
+        public IResult Delete(int id)
         {
-            _customerDal.Delete(customer);
+            //business Codes
+            IResult result = BusinessRules.Run(checkCustomerNotExist(id));
+            if (result != null)
+            {
+                return result;
+            }
+            _customerDal.Delete(id);
             return new SuccessResult(Messages.ApiDeleted);
         }
 
@@ -109,6 +115,15 @@ namespace Business.Concrete
                 return new SuccessResult();
             }
             else return new ErrorResult("Boyle bir customer telefon numarası zaten var");
+        }
+        private IResult checkCustomerNotExist(int id)
+        {
+            var entityCheck = _customerDal.GetOne(c => c.CustomerId == id);
+            if (entityCheck is null)
+            {
+                return new ErrorResult("Boyle bir customer yok");
+            }
+            else return new SuccessResult();
         }
     }
 }

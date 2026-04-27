@@ -58,18 +58,17 @@ namespace WebAPI.Controllers
             }
         }
         [HttpDelete]
-        public IActionResult Delete(User user)
+        public IActionResult Delete(int id)
         {
             try
             {
 
-                var result = _userService.Delete(user);
+                var result = _userService.Delete(id);
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                var result = _userService.Add(user);
-                return Ok(result);
+                throw new Exception(ex.Message);
             }
         }
         [HttpPut]

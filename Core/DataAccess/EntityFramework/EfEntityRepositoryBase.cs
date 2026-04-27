@@ -23,13 +23,17 @@ namespace Core.DataAccess.EfRepositoryContext
             }
         }
 
-        public void Delete(TEntity entity)
+        public void Delete(int id)
         {
             using (TContext context = new TContext())
             {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
+                var deletedEntity = context.Set<TEntity>().Find(id);
+                if (deletedEntity != null)
+                {
+                    context.Remove(deletedEntity);
+                    context.SaveChanges();
+                }
+                
             }
         }
 

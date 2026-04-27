@@ -57,11 +57,11 @@ namespace WebAPI.Controllers
             }
         }
         [HttpDelete]
-        public IActionResult Delete(Customer customer)
+        public IActionResult Delete(int id)
         {
             try
             {
-                var result = _customerService.Delete(customer);
+                var result = _customerService.Delete(id);
                 return Ok(result);
             }
             catch (Exception ex)

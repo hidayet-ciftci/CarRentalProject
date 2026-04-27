@@ -11,7 +11,7 @@ namespace Business.Abstract
     public interface IServiceRecordService
     {
         IResult Add(ServiceRecord serviceRecord);
-        IResult Delete(ServiceRecord serviceRecord);
+        IResult Delete(int id);
         IResult Update(ServiceRecord serviceRecord);
         IDataResult<List<ServiceRecord>> GetAll();
         IDataResult<ServiceRecord> GetOneById(int ServiceRecordId);

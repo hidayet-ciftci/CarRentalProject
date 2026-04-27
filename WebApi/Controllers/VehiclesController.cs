@@ -61,12 +61,12 @@ namespace WebAPI.Controllers
             }
         }
         [HttpDelete]
-        public IActionResult Delete(Vehicle vehicle)
+        public IActionResult Delete(int id)
         {
             try
             {
 
-                var result = _vehicleService.Delete(vehicle);
+                var result = _vehicleService.Delete(id);
                 return Ok(result);
             }
             catch (Exception ex)

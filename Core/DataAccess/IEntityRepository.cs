@@ -12,7 +12,7 @@ namespace Core.DataAccess
         where T : class, IEntity, new()
     {
         void Add(T entity);
-        void Delete(T entity);
+        void Delete(int id);
         void Update(T entity);
 
         List<T> GetAll();

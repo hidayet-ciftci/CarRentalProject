@@ -13,7 +13,7 @@ namespace Business.Abstract
     public interface ICustomerService
     {
         IResult Add(Customer customer);
-        IResult Delete(Customer customer);
+        IResult Delete(int id);
         IResult Update(Customer customer);
         IDataResult<List<Customer>> GetAll();
         IDataResult<Customer> GetOneById(int customerId);

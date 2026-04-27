@@ -12,7 +12,7 @@ namespace Business.Abstract
     public interface IVehicleService
     {
         IResult Add(Vehicle vehicle);
-        IResult Delete(Vehicle vehicle);
+        IResult Delete(int id);
         IResult Update(Vehicle vehicle);
         IDataResult<List<Vehicle>> GetAll();
         IDataResult<Vehicle> GetOneById(int vehicleId);
