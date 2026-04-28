@@ -45,7 +45,12 @@ namespace Business.Concrete
 
         public IDataResult<Vehicle> GetOneById(int vehicleId)
         {
-            return new SuccessDataResult<Vehicle>(_vehicleDal.GetOne(v => v.Id == vehicleId),Messages.ApiListed);
+            var entity = _vehicleDal.GetOne(v => v.Id == vehicleId);
+            if (entity is null)
+            {
+                return new ErrorDataResult<Vehicle>(entity, Messages.NotFound);
+            }
+            return new SuccessDataResult<Vehicle>(entity, Messages.ApiListed);
         }
 
         public IResult Update(Vehicle vehicle)

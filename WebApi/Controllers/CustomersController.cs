@@ -29,14 +29,14 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [Authorize]
+        //[Authorize]
         [HttpGet("getOneById")]
         public IActionResult getOnebyId(int id)
         {
             try
             {
-                var customer = _customerService.GetOneById(id);
-                return Ok(customer);
+                var result = _customerService.GetOneById(id);
+                return Ok(result);
             }
             catch (Exception ex)
             {

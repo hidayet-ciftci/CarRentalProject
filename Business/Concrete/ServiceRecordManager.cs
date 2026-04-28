@@ -44,9 +44,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<ServiceRecord>>(_serviceRecordDal.GetAll(),Messages.ApiListed);
         }
 
-        public IDataResult<ServiceRecord> GetOneById(int ServiceRecordId)
+        public IDataResult<ServiceRecord> GetOneById(int id)
         {
-            return new SuccessDataResult<ServiceRecord>(_serviceRecordDal.GetOne(s => s.Id == ServiceRecordId),Messages.ApiListed);
+            return new SuccessDataResult<ServiceRecord>(_serviceRecordDal.GetOne(s => s.Id == id),Messages.ApiListed);
         }
 
         public IResult Update(ServiceRecord serviceRecord)

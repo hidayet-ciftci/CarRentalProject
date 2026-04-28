@@ -12,12 +12,12 @@ namespace Entities.Concrete
         public int Id { get; set; }
         public int VehicleId { get; set; }
         public int UserId { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public string State { get; set; }
-        public DateTime PlannedEndDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public Double Price { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime? PlannedEndDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public decimal? Price { get; set; }
+        public DateTime CreatedTime { get; set; }
 
     }
 }

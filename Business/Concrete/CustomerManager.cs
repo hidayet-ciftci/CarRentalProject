@@ -65,8 +65,8 @@ namespace Business.Concrete
             var entity = _customerDal.GetOne(c => c.Id == customerId);
             if (entity is null)
             {
-                return new ErrorDataResult<Customer>(entity,Messages.NotFound);
-            }   
+                return new ErrorDataResult<Customer>(entity, Messages.NotFound);
+            }
             return new SuccessDataResult<Customer>(entity,Messages.ApiListed);
         }
 
