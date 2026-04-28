@@ -15,16 +15,23 @@ namespace Core.Utilities.Security
         {
             _configuration = configuration;
         }
-        public string CreateToken(User user)
+        public string CreateToken(User user,List<OperationClaim> operationClaims)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var claims = new[] 
+            var claims = new List<Claim> 
             { 
                 new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
-                //new Claim(ClaimTypes.Role, user.RoleId.ToString())
+                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}")
+                // name il user gerekliligi ? 
             };
+
+            foreach (var claim in operationClaims)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, claim.Name));
+            }
+
             var token = new JwtSecurityToken(
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audince"],

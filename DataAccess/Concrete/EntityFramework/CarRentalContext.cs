@@ -21,5 +21,7 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<ServiceRecord> ServiceRecords { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
     }
 }
