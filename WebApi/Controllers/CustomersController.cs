@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("getOneById")]
         public IActionResult getOnebyId(int id)
         {

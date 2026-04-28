@@ -45,7 +45,7 @@ namespace Business.Concrete
 
         public IDataResult<Vehicle> GetOneById(int vehicleId)
         {
-            return new SuccessDataResult<Vehicle>(_vehicleDal.GetOne(v => v.VehicleId == vehicleId),Messages.ApiListed);
+            return new SuccessDataResult<Vehicle>(_vehicleDal.GetOne(v => v.Id == vehicleId),Messages.ApiListed);
         }
 
         public IResult Update(Vehicle vehicle)
@@ -55,7 +55,7 @@ namespace Business.Concrete
         }
         private IResult checkCustomerNotExist(int id)
         {
-            var entityCheck = _vehicleDal.GetOne(v => v.VehicleId == id);
+            var entityCheck = _vehicleDal.GetOne(v => v.Id == id);
             if (entityCheck is null)
             {
                 return new ErrorResult("Boyle bir customer yok");

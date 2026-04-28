@@ -46,7 +46,7 @@ namespace Business.Concrete
 
         public IDataResult<ServiceRecord> GetOneById(int ServiceRecordId)
         {
-            return new SuccessDataResult<ServiceRecord>(_serviceRecordDal.GetOne(s => s.ServiceRecordId == ServiceRecordId),Messages.ApiListed);
+            return new SuccessDataResult<ServiceRecord>(_serviceRecordDal.GetOne(s => s.Id == ServiceRecordId),Messages.ApiListed);
         }
 
         public IResult Update(ServiceRecord serviceRecord)
@@ -59,7 +59,7 @@ namespace Business.Concrete
 
         private IResult checkCustomerNotExist(int id)
         {
-            var entityCheck = _serviceRecordDal.GetOne(s => s.ServiceRecordId == id);
+            var entityCheck = _serviceRecordDal.GetOne(s => s.Id == id);
             if (entityCheck is null)
             {
                 return new ErrorResult("Boyle bir Service Record yok");

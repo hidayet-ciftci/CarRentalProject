@@ -19,11 +19,11 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 var result = from c in context.Customers
                              join v in context.Vehicles
-                             on c.CustomerId equals v.CustomerId
+                             on c.Id equals v.CustomerId
                              select new CustomerDetailDto
                              {
-                                 CustomerId = c.CustomerId,FirstName = c.FirstName, LastName = c.LastName,
-                                 VehicleId = v.VehicleId,Brand = v.Brand , Color = v.Color, Plate = v.Plate, VIN_Number= v.VIN_Number
+                                 CustomerId = c.Id,FirstName = c.FirstName, LastName = c.LastName,
+                                 VehicleId = v.Id,Brand = v.Brand , Color = v.Color, Plate = v.Plate, VIN_Number= v.VIN_Number
                              };
                 return result.ToList();
             }

@@ -2,6 +2,7 @@
 using Business.Concrete;
 using Business.ValidationRules.FluentValidation;
 using Core.Utilities.IoC;
+using Core.Utilities.Security;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
@@ -33,6 +34,9 @@ namespace Core.DependencyResolvers
 
             serviceCollection.AddSingleton<IServiceRecordService, ServiceRecordManager>();
             serviceCollection.AddSingleton<IServiceRecordDal, EfServiceRecordDal>();
+
+            serviceCollection.AddScoped<IAuthService, AuthManager>();
+            serviceCollection.AddScoped<JwtHelper>();
 
         }
     }

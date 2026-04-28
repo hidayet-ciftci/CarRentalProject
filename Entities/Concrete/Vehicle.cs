@@ -9,7 +9,7 @@ namespace Entities.Concrete
 {
     public class Vehicle:IEntity
     {
-        public int VehicleId { get; set; }
+        public int Id { get; set; }
         public int CustomerId { get; set; }
         public string Plate { get; set; }
         public string Brand { get; set; }

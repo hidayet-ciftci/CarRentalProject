@@ -28,7 +28,7 @@ namespace Business.Concrete
         public IResult Add(Customer customer)
         {
             //business Codes
-            IResult result = BusinessRules.Run(checkCustomerExist(customer.CustomerId), checkPhoneNumExist(customer.PhoneNumber),checkEmailExist(customer.Email), checkCustomerNum());
+            IResult result = BusinessRules.Run(checkCustomerExist(customer.Id), checkPhoneNumExist(customer.PhoneNumber),checkEmailExist(customer.Email), checkCustomerNum());
            if (result != null)
             {
                 return result;
@@ -62,7 +62,7 @@ namespace Business.Concrete
 
         public IDataResult<Customer> GetOneById(int customerId)
         {
-            var entity = _customerDal.GetOne(c => c.CustomerId == customerId);
+            var entity = _customerDal.GetOne(c => c.Id == customerId);
             if (entity is null)
             {
                 return new ErrorDataResult<Customer>(entity,Messages.NotFound);
@@ -91,7 +91,7 @@ namespace Business.Concrete
         }
         private IResult checkCustomerExist(int id)
         {
-            var entityCheck = _customerDal.GetOne(c=>c.CustomerId==id);
+            var entityCheck = _customerDal.GetOne(c=>c.Id ==id);
             if (entityCheck is null)
             {
                 return new SuccessResult();
@@ -118,7 +118,7 @@ namespace Business.Concrete
         }
         private IResult checkCustomerNotExist(int id)
         {
-            var entityCheck = _customerDal.GetOne(c => c.CustomerId == id);
+            var entityCheck = _customerDal.GetOne(c => c.Id == id);
             if (entityCheck is null)
             {
                 return new ErrorResult("Boyle bir customer yok");
