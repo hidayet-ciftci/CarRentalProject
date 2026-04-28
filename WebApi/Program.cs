@@ -71,8 +71,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication();  // bu kullanici kim ?
+app.UseAuthorization();   // bu kullanicinin bunu yapmaya yetkisi var mi ?
 
 
 app.MapControllers();

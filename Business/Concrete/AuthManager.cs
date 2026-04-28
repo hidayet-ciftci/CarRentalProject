@@ -38,7 +38,7 @@ namespace Business.Concrete
                 LastName = registerDto.LastName,
                 Email = registerDto.Email,
                 PasswordHash = passwordHash,
-                PhoneNumber = registerDto.Phone,
+                PhoneNumber = registerDto.PhoneNumber,
                 //RoleId = 2,
                 Status = true,
                 CreatedTime = DateTime.UtcNow
@@ -61,7 +61,5 @@ namespace Business.Concrete
             var token = _jwtHelper.CreateToken(user);
             return new SuccessDataResult<string>(token, "Giris basarili");
         }
-
-        
     }
 }
