@@ -44,43 +44,39 @@ namespace Business.Concrete
             };
             _userDal.Add(user);
 
-            // Varsayılan olarak "User" rolü ata
-            // Not: Bu satır için IUserOperationClaimDal inject edilmeli
-            // Şimdilik DB'ye manuel ekleyebilirsin, aşağıda açıkladım
-
             return new SuccessResult("Succesfully Registered");
         }
-        public IDataResult<string> Login(LoginDto loginDto)
+        public IDataResult<TokenDto> Login(LoginDto loginDto)
         {
             var user = _userDal.GetOne(u => u.Email == loginDto.Email);
             if (user == null)
             {
-                return new ErrorDataResult<string>("Email ya da sifre hatali");
+                return new ErrorDataResult<TokenDto>(null,"Email ya da sifre hatali");
             }
             bool isValid = HashHelper.VerifyPassword(loginDto.Password, user.PasswordHash);
             if (!isValid)
             {
-                return new ErrorDataResult<string>("Email ya da sifre hatali");
+                return new ErrorDataResult<TokenDto>(null,"Email ya da sifre hatali");
             }
             var claims = _userDal.GetClaims(user);
             var accessToken = _jwtHelper.CreateToken(user,claims);
-
-            user.RefreshToken = _jwtHelper.CreateRefreshToken();
+            var newRefreshToken = _jwtHelper.CreateRefreshToken();
+            user.RefreshToken = newRefreshToken;
             user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(7);
             _userDal.Update(user);
-            return new SuccessDataResult<string>($"{accessToken}|{user.RefreshToken}", "Giris basarili");
+            return new SuccessDataResult<TokenDto>(new TokenDto { AccessToken = accessToken, RefreshToken = newRefreshToken }, "Token yenilendi");
         }
 
-        public IDataResult<string> RefreshToken(RefreshTokenDto dto)
+        public IDataResult<TokenDto> RefreshToken(RefreshTokenDto dto)
         {
             var user = _userDal.GetOne(u => u.RefreshToken == dto.RefreshToken);
             if (user==null)
             {
-                return new ErrorDataResult<string>("unvalid refresh token");
+                return new ErrorDataResult<TokenDto>(null,"unvalid refresh token");
             }
             if (user.RefreshTokenExpiry < DateTime.UtcNow)
             {
-                return new ErrorDataResult<string>("Refresh token suresi dolmus, lutfen giris yapin");
+                return new ErrorDataResult<TokenDto>(null,"Refresh token suresi dolmus, lutfen giris yapin");
             }
             var claims = _userDal.GetClaims(user);
             var newAccessToken = _jwtHelper.CreateToken(user, claims);
@@ -90,8 +86,7 @@ namespace Business.Concrete
             user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(7);
             _userDal.Update(user);
 
-            return new SuccessDataResult<string>($"{newAccessToken}|{newRefreshToken}",
-                "Token yenilendi.");
+            return new SuccessDataResult<TokenDto>(new TokenDto { AccessToken=newAccessToken,RefreshToken=newRefreshToken},"Token yenilendi");
         }
     }
 }

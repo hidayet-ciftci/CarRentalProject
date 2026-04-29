@@ -107,7 +107,7 @@ app.Run();
 
 
 // sıfırdan proje ++ 
-// token , refresh token 
+// token , refresh token ++
 // role bazlı metod'a ulasma ++
 // erisim hakkın yok uyarısı ++
 // migration yok , elle girilecek ++
