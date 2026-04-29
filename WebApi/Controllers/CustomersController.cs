@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        //[Authorize]
+        [Authorize]
         [HttpGet("getOneById")]
         public IActionResult getOnebyId(int id)
         {

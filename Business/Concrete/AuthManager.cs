@@ -39,11 +39,15 @@ namespace Business.Concrete
                 Email = registerDto.Email,
                 PasswordHash = passwordHash,
                 PhoneNumber = registerDto.PhoneNumber,
-                //RoleId = 2,
                 Status = true,
                 CreatedTime = DateTime.UtcNow
             };
             _userDal.Add(user);
+
+            // Varsayılan olarak "User" rolü ata
+            // Not: Bu satır için IUserOperationClaimDal inject edilmeli
+            // Şimdilik DB'ye manuel ekleyebilirsin, aşağıda açıkladım
+
             return new SuccessResult("Succesfully Registered");
         }
         public IDataResult<string> Login(LoginDto loginDto)
@@ -58,7 +62,8 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<string>("Email ya da sifre hatali");
             }
-            var token = _jwtHelper.CreateToken(user);
+            var claims = _userDal.GetClaims(user);
+            var token = _jwtHelper.CreateToken(user,claims);
             return new SuccessDataResult<string>(token, "Giris basarili");
         }
     }

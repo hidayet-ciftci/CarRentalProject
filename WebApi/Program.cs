@@ -78,4 +78,27 @@ app.UseAuthorization();   // bu kullanicinin bunu yapmaya yetkisi var mi ?
 app.MapControllers();
 
 app.Run();
- 
+
+
+// sıfırdan proje ++ 
+// token , refresh token 
+// role bazlı metod'a ulasma
+// erisim hakkın yok uyarısı
+// migration yok , elle girilecek ++
+// veritabani check, unique constraint koyulacak ++ 
+// microsoft kutuphanesi ile IoC ++
+// join ile veri cekilecek , DTO ++
+// fluent validation  ++
+// N-tier arch ile projeyi kur +-
+
+
+// sorulacak sorular : -> Hem check hem fluent_validation ikisi de mi kullanilir ?
+// AOP eksiklikleri ? farklı mı kullanacağız ? 
+// aynı araç state tamamlandi olmadan ekleme durumu best practice ? 
+// simdilik backend'de kontrol ediliyor
+
+// iş kurallari ++
+// IoC ++
+// crud ve business islemleri okey olsun. proje check et sonra auth'a gec ++
+// Auth 
+// check constraint ve veriler elle girilecek. ++
