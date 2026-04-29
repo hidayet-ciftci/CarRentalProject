@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.Dtos.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace Business.Abstract
         IResult Update(ServiceRecord serviceRecord);
         IDataResult<List<ServiceRecord>> GetAll();
         IDataResult<ServiceRecord> GetOneById(int ServiceRecordId);
+
+        IDataResult<List<ServiceDetailViewDto>> GetAllServiceDetails();
     }
 }

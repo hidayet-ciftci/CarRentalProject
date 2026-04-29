@@ -1,5 +1,5 @@
 ﻿using Core.Utilities.Results;
-using Entities.Dtos;
+using Entities.Dtos.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;

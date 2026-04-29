@@ -129,7 +129,7 @@ app.Run();
 // check constraint ve veriler elle girilecek. ++
 
 // Salt ++
-// database View
+// database View ++
 // cronjob, rabbitMQ loglama sistemi - rebus , redis gencay
 // pipeline , CQRS - gencay
 

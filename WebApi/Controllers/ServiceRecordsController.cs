@@ -86,5 +86,19 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [HttpGet("AllServiceDetails")]
+        public IActionResult GetAllDetails()
+        {
+            try
+            {
+                var result = _serviceRecordService.GetAllServiceDetails();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

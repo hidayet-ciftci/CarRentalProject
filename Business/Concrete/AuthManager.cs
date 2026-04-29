@@ -4,7 +4,7 @@ using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security;
 using DataAccess.Abstract;
-using Entities.Dtos;
+using Entities.Dtos.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;

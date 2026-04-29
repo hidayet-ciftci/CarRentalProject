@@ -5,6 +5,7 @@ using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.Dtos.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,11 @@ namespace Business.Concrete
         public IDataResult<List<ServiceRecord>> GetAll()
         {
             return new SuccessDataResult<List<ServiceRecord>>(_serviceRecordDal.GetAll(),Messages.ApiListed);
+        }
+
+        public IDataResult<List<ServiceDetailViewDto>> GetAllServiceDetails()
+        {
+            return new SuccessDataResult<List<ServiceDetailViewDto>>(_serviceRecordDal.GetAllServiceDetails(),Messages.ApiListed);
         }
 
         public IDataResult<ServiceRecord> GetOneById(int id)

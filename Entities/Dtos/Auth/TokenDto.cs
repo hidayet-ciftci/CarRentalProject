@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Dtos
+namespace Entities.Dtos.Auth
 {
-    public class RefreshTokenDto
+    public class TokenDto
     {
+        public string AccessToken { get; set; }
         public string RefreshToken { get; set; }
     }
 }

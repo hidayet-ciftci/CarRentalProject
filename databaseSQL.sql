@@ -101,8 +101,42 @@ from "Customers" c
 join "Vehicles" v 
 on c."Id" = v."CustomerId" 
 join "ServiceRecords" sr
-on sr."VehicleId" = v."Id"
+on sr."VehicleId" = v."Id";
 
+
+CREATE VIEW "vw_service_detail" AS
+Select 
+c."FirstName"|| ' ' ||c."LastName" as "FullName",
+c."PhoneNumber", 
+c."Email",
+c."Address",
+v."Plate",
+v."Brand",
+v."Color",
+(select u."FirstName" || ' ' || u."LastName" as "employer_Name" from "Users" u where u."Id" = sr."UserId"),
+sr."Description",
+sr."State"
+from "Customers" c 
+join "Vehicles" v 
+on c."Id" = v."CustomerId" 
+join "ServiceRecords" sr
+on sr."VehicleId" = v."Id";
+
+SELECT * FROM "vw_service_detail";
+
+DROP VIEW "vw_OrderSummary";
+
+ALTER VIEW "vw_OrderSummary"
+AS
+SELECT
+    o.Id AS OrderId,
+    c.FullName,
+    c.Email,
+    o.OrderDate,
+    o.TotalAmount,
+    o.Status
+FROM Orders o
+INNER JOIN Customers c ON o.CustomerId = c.Id;
 
 
 --DROP TABLE "OperationClaims";
