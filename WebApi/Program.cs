@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -113,11 +115,11 @@ app.Run();
 // microsoft kutuphanesi ile IoC ++
 // join ile veri cekilecek , DTO ++
 // fluent validation  ++
-// N-tier arch ile projeyi kur +-
+// N-tier arch ile projeyi kur ++
 
 
 // sorulacak sorular : -> Hem check hem fluent_validation ikisi de mi kullanilir ?
-// AOP eksiklikleri ? farklı mı kullanacağız ? 
+// AOP eksiklikleri ? farklı mı kullanacağız ? -> cache ? transaction ?
 // aynı araç state tamamlandi olmadan ekleme durumu best practice ? 
 // simdilik backend'de kontrol ediliyor
 

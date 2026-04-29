@@ -12,5 +12,6 @@ namespace Business.Abstract
     {
         IDataResult<string> Login(LoginDto loginDto);
         IResult Register(RegisterDto registerDto);
+        IDataResult<string> RefreshToken(RefreshTokenDto dto);
     }
 }

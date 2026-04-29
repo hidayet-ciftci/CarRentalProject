@@ -34,5 +34,12 @@ namespace WebAPI.Controllers
             }
             return Ok(result);
         }
+        [HttpPost("refresh")]
+        public IActionResult Refresh(RefreshTokenDto dto)
+        {
+            var result = _authService.RefreshToken(dto);
+            if (!result.Success) return Unauthorized(result);
+            return Ok(result);
+        }
     }
 }

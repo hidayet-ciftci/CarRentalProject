@@ -63,8 +63,35 @@ namespace Business.Concrete
                 return new ErrorDataResult<string>("Email ya da sifre hatali");
             }
             var claims = _userDal.GetClaims(user);
-            var token = _jwtHelper.CreateToken(user,claims);
-            return new SuccessDataResult<string>(token, "Giris basarili");
+            var accessToken = _jwtHelper.CreateToken(user,claims);
+
+            user.RefreshToken = _jwtHelper.CreateRefreshToken();
+            user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(7);
+            _userDal.Update(user);
+            return new SuccessDataResult<string>($"{accessToken}|{user.RefreshToken}", "Giris basarili");
+        }
+
+        public IDataResult<string> RefreshToken(RefreshTokenDto dto)
+        {
+            var user = _userDal.GetOne(u => u.RefreshToken == dto.RefreshToken);
+            if (user==null)
+            {
+                return new ErrorDataResult<string>("unvalid refresh token");
+            }
+            if (user.RefreshTokenExpiry < DateTime.UtcNow)
+            {
+                return new ErrorDataResult<string>("Refresh token suresi dolmus, lutfen giris yapin");
+            }
+            var claims = _userDal.GetClaims(user);
+            var newAccessToken = _jwtHelper.CreateToken(user, claims);
+            var newRefreshToken = _jwtHelper.CreateRefreshToken();
+
+            user.RefreshToken = newRefreshToken;
+            user.RefreshTokenExpiry = DateTime.UtcNow.AddDays(7);
+            _userDal.Update(user);
+
+            return new SuccessDataResult<string>($"{newAccessToken}|{newRefreshToken}",
+                "Token yenilendi.");
         }
     }
 }
