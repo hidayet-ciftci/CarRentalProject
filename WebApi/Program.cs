@@ -17,6 +17,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -32,12 +39,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 
 
 //builder.Services.AddScoped<ICustomerService, CustomerManager>();
@@ -82,8 +83,8 @@ app.Run();
 
 // sıfırdan proje ++ 
 // token , refresh token 
-// role bazlı metod'a ulasma
-// erisim hakkın yok uyarısı
+// role bazlı metod'a ulasma 
+// erisim hakkın yok uyarısı 
 // migration yok , elle girilecek ++
 // veritabani check, unique constraint koyulacak ++ 
 // microsoft kutuphanesi ile IoC ++
@@ -100,5 +101,5 @@ app.Run();
 // iş kurallari ++
 // IoC ++
 // crud ve business islemleri okey olsun. proje check et sonra auth'a gec ++
-// Auth 
+// Auth ++
 // check constraint ve veriler elle girilecek. ++

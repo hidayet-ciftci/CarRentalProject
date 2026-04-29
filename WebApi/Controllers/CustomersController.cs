@@ -86,6 +86,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize(Roles = ("User"))]
         [HttpGet("GetDetail")]
         public IActionResult GetDetail()
         {
