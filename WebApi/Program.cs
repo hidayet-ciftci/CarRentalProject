@@ -38,6 +38,29 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
+
+        options.Events = new JwtBearerEvents // ??
+        {
+            // Token yok veya geçersiz → 401
+            OnChallenge = context =>
+            {
+                context.HandleResponse();
+                context.Response.StatusCode = 401;
+                context.Response.ContentType = "application/json";
+                var result = "{\"success\":false,\"message\":\"Bu işlem için giriş yapmanız gerekiyor.\"}";
+                return context.Response.WriteAsync(result);
+            },
+
+            // Token geçerli ama rol yetersiz → 403
+            OnForbidden = context =>
+            {
+                context.Response.StatusCode = 403;
+                context.Response.ContentType = "application/json";
+                var result = "{\"success\":false,\"message\":\"Bu işlem için yetkiniz bulunmamaktadır.\"}";
+                return context.Response.WriteAsync(result);
+            }
+        };
+
     });
 
 
@@ -83,8 +106,8 @@ app.Run();
 
 // sıfırdan proje ++ 
 // token , refresh token 
-// role bazlı metod'a ulasma 
-// erisim hakkın yok uyarısı 
+// role bazlı metod'a ulasma ++
+// erisim hakkın yok uyarısı ++
 // migration yok , elle girilecek ++
 // veritabani check, unique constraint koyulacak ++ 
 // microsoft kutuphanesi ile IoC ++
