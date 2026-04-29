@@ -118,13 +118,19 @@ app.Run();
 // N-tier arch ile projeyi kur ++
 
 
-// sorulacak sorular : -> Hem check hem fluent_validation ikisi de mi kullanilir ?
-// AOP eksiklikleri ? farklı mı kullanacağız ? -> cache ? transaction ?
-// aynı araç state tamamlandi olmadan ekleme durumu best practice ? 
-// simdilik backend'de kontrol ediliyor
+// sorulacak sorular : -> Hem check hem fluent_validation ikisi de mi kullanilir ? -> evet check + check
+// AOP eksiklikleri ? farklı mı kullanacağız ? -> cache ? transaction ? AOP farklı bir kullanım tarzı o kadar da sart degil
+// aynı araç state tamamlandi olmadan ekleme durumu best practice ? -> backend daha pratik,
 
 // iş kurallari ++
 // IoC ++
 // crud ve business islemleri okey olsun. proje check et sonra auth'a gec ++
 // Auth ++
 // check constraint ve veriler elle girilecek. ++
+
+// Salt ++
+// database View
+// cronjob, rabbitMQ loglama sistemi - rebus , redis gencay
+// pipeline , CQRS - gencay
+
+// expo 

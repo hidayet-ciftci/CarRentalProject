@@ -45,7 +45,7 @@ Create Table "ServiceRecords" (
 	"Price" Decimal(8,2) default 0,
 	"CreatedTime" Timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
+-- enum yerine yeni tablo
 Create Table "OperationClaims" (
 	"Id" SERIAL NOT NULL UNIQUE PRIMARY KEY,
 	"Name" varchar(25) NOT NULL UNIQUE
@@ -73,7 +73,10 @@ INSERT INTO "ServiceRecords" (
 		
 INSERT INTO "OperationClaims" ("Name") VALUES ('Admin') , ('Worker') , ('Manager');
 
-INSERT INTO "UserOperationClaims" ("UserId","OperationClaimId") VALUES (1,2) , (2,3) , (3,1);
+INSERT INTO "UserOperationClaims" ("UserId","OperationClaimId") VALUES (4,1);
+
+ALTER TABLE "Users" ADD COLUMN "RefreshToken" VARCHAR(255);
+ALTER TABLE "Users" ADD COLUMN "RefreshTokenExpiry" TIMESTAMP;
 
 select * from "Vehicles";
 select * from "Customers";
@@ -81,4 +84,25 @@ Select * from "Users";
 Select * from "ServiceRecords";
 Select * FROM "UserOperationClaims";
 Select * from "OperationClaims";
+
+
+Select 
+c."FirstName"|| ' ' ||c."LastName" as "FullName",
+c."PhoneNumber", 
+c."Email",
+c."Address",
+v."Plate",
+v."Brand",
+v."Color",
+(select u."FirstName" || ' ' || u."LastName" as "FullName" from "Users" u where u."Id" = sr."UserId"),
+sr."Description",
+sr."State"
+from "Customers" c 
+join "Vehicles" v 
+on c."Id" = v."CustomerId" 
+join "ServiceRecords" sr
+on sr."VehicleId" = v."Id"
+
+
+
 --DROP TABLE "OperationClaims";

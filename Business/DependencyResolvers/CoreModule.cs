@@ -24,7 +24,8 @@ namespace Core.DependencyResolvers
             serviceCollection.AddScoped<ICustomerService, CustomerManager>();
             serviceCollection.AddScoped<IValidator<Customer>, CustomerValidator>();
             serviceCollection.AddScoped<ICustomerDal, EfCustomerDal>();
-
+            // transiat her istekte yeni olusturulur
+            // scoped da istekde olusturulur aynı instance paylastilir.
 
             serviceCollection.AddSingleton<IVehicleService, VehicleManager>();
             serviceCollection.AddSingleton<IVehicleDal, EfVehicelDal>();
