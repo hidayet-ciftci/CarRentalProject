@@ -1,15 +1,7 @@
-using Business.Abstract;
-using Business.Concrete;
-using Business.ValidationRules.FluentValidation;
 using Core.DependencyResolvers;
 using Core.Extensions;
 using Core.Utilities.IoC;
-using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework;
-using Entities.Concrete;
-using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -128,9 +120,13 @@ app.Run();
 // Auth ++
 // check constraint ve veriler elle girilecek. ++
 
+// Bittenler -------------------------------------
+
 // Salt ++
 // database View ++
-// cronjob, rabbitMQ loglama sistemi - rebus , redis gencay
+// cronjob, rabbitMQ loglama sistemi - rebus , redis ,gencay
 // pipeline , CQRS - gencay
+
+// Hangfire?
 
 // expo 
