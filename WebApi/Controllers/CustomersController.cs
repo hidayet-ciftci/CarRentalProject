@@ -29,7 +29,6 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [Authorize]
         [HttpGet("getOneById")]
         public IActionResult getOnebyId(int id)
         {
@@ -44,6 +43,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize(Roles = ("Admin,Manager"))]
         [HttpPost]
         public IActionResult Add(Customer customer)
         {
@@ -58,6 +58,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize(Roles = ("Admin,Manager"))]
         [HttpDelete]
         public IActionResult Delete(int id)
         {
@@ -72,6 +73,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize(Roles = ("Admin,Manager"))]
         [HttpPut]
         public IActionResult Update(Customer customer)
         {
@@ -86,7 +88,6 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [Authorize(Roles = ("User"))]
         [HttpGet("GetDetail")]
         public IActionResult GetDetail()
         {

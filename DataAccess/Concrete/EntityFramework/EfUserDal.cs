@@ -11,6 +11,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfUserDal : EfEntityRepositoryBase<User, CarRentalContext>, IUserDal
     {
+
         public List<OperationClaim> GetClaims(User user)
         {
             using (CarRentalContext context = new CarRentalContext())
@@ -25,6 +26,20 @@ namespace DataAccess.Concrete.EntityFramework
                                  Name = oc.Name
                              };
                 return result.ToList();
+            }
+        }
+        public void AddClaim(int userId, int roleId)
+        {
+            using (CarRentalContext context = new CarRentalContext())
+            {
+                var newClaim = new UserOperationClaim
+                {
+                    UserId = userId,
+                    OperationClaimId = roleId,
+                };
+
+                context.UserOperationClaims.Add(newClaim);
+                context.SaveChanges();
             }
         }
     }

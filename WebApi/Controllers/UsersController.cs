@@ -16,6 +16,7 @@ namespace WebAPI.Controllers
         {
             _userService = userService;
         }
+        [Authorize(Roles = ("Admin"))]
         [HttpGet]
         public IActionResult getAll()
         {
@@ -46,6 +47,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize(Roles = ("Admin"))]
         [HttpPost]
         public IActionResult Add(User user)
         {
@@ -59,6 +61,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize(Roles = ("Admin"))]
         [HttpDelete]
         public IActionResult Delete(int id)
         {
@@ -73,6 +76,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize(Roles = ("Admin"))]
         [HttpPut]
         public IActionResult Update(User user)
         {
@@ -88,19 +92,19 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [HttpGet("getWithTransaction")]
-        public IActionResult GetWithTransaction()
-        {
-            try
-            {
-                var result = _userService.GetAllWithTransaction();
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
+        //[HttpGet("getWithTransaction")]
+        //public IActionResult GetWithTransaction()
+        //{
+        //    try
+        //    {
+        //        var result = _userService.GetAllWithTransaction();
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                throw new Exception(ex.Message);
-            }
-        }
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
     }
 }

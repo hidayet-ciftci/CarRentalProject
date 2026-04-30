@@ -43,8 +43,9 @@ namespace Business.Concrete
                 CreatedTime = DateTime.UtcNow
             };
             _userDal.Add(user);
+            _userDal.AddClaim(user.Id,2);
 
-            return new SuccessResult("Succesfully Registered");
+            return new SuccessResult("Succesfully Registered with workerRole");
         }
         public IDataResult<TokenDto> Login(LoginDto loginDto)
         {

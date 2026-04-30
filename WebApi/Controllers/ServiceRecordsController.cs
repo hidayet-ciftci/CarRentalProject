@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,6 +42,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize(Roles = ("Admin,Worker"))]
         [HttpPost]
         public IActionResult Add(ServiceRecord serviceRecord)
         {
@@ -56,6 +58,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize(Roles = ("Admin,Worker"))]
         [HttpDelete]
         public IActionResult Delete(int id)
         {
@@ -71,6 +74,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize(Roles = ("Admin,Worker"))]
         [HttpPut]
         public IActionResult Update(ServiceRecord serviceRecord)
         {
