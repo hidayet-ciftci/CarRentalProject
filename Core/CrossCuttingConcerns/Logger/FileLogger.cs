@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.CCS.Logger
+namespace Core.CrossCuttingConcerns.Logger
 {
-    public class ConsoleLogger : ILogger
+    public class FileLogger : ILogger
     {
         public void Log()
         {
-            Console.WriteLine("Console Loglandi");
+            Console.WriteLine("Dosyaya loglandi");
         }
     }
 }

@@ -2,6 +2,7 @@
 using Business.Concrete;
 using Business.Jobs;
 using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Logger;
 using Core.Utilities.IoC;
 using Core.Utilities.Security;
 using DataAccess.Abstract;
@@ -27,20 +28,23 @@ namespace Core.DependencyResolvers
             serviceCollection.AddScoped<ICustomerDal, EfCustomerDal>();
             // transiat her istekte yeni olusturulur
             // scoped da istekde olusturulur aynı instance paylastilir.
+            // singletaion da sadece 1 istek uyg ayaga kalktiginda.
 
-            serviceCollection.AddSingleton<IVehicleService, VehicleManager>();
-            serviceCollection.AddSingleton<IVehicleDal, EfVehicelDal>();
+            serviceCollection.AddScoped<IVehicleService, VehicleManager>();
+            serviceCollection.AddScoped<IVehicleDal, EfVehicelDal>();
 
-            serviceCollection.AddSingleton<IUserService, UserManager>();
-            serviceCollection.AddSingleton<IUserDal, EfUserDal>();
+            serviceCollection.AddScoped<IUserService, UserManager>();
+            serviceCollection.AddScoped<IUserDal, EfUserDal>();
 
-            serviceCollection.AddSingleton<IServiceRecordService, ServiceRecordManager>();
-            serviceCollection.AddSingleton<IServiceRecordDal, EfServiceRecordDal>();
+            serviceCollection.AddScoped<IServiceRecordService, ServiceRecordManager>();
+            serviceCollection.AddScoped<IServiceRecordDal, EfServiceRecordDal>();
 
             serviceCollection.AddScoped<IAuthService, AuthManager>();
             serviceCollection.AddScoped<JwtHelper>();
 
             serviceCollection.AddScoped<ICronJobService, CronJobManager>();
+
+            serviceCollection.AddSingleton<ILogger, ConsoleLogger>();
 
         }
     }

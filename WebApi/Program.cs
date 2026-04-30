@@ -17,29 +17,29 @@ var builder = WebApplication.CreateBuilder(args);
 
 // HangFire, CronJob ile SeriLog services
 
-Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(builder.Configuration)
-    .Enrich.FromLogContext()
-    .CreateLogger();
+//Log.Logger = new LoggerConfiguration()
+//    .ReadFrom.Configuration(builder.Configuration)
+//    .Enrich.FromLogContext()
+//    .CreateLogger();
 
-// SeriLog service
-builder.Host.UseSerilog();
+//// SeriLog service
+//builder.Host.UseSerilog();
 
-builder.Services.AddHangfire(config => config
-    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-    .UseSimpleAssemblyNameTypeSerializer()
-    .UseRecommendedSerializerSettings()
-    .UsePostgreSqlStorage(
-        builder.Configuration.GetConnectionString("PostgreSQL"),
-        new PostgreSqlStorageOptions
-        {
-            QueuePollInterval = TimeSpan.FromSeconds(15),
-            JobExpirationCheckInterval = TimeSpan.FromHours(1),
-            CountersAggregateInterval = TimeSpan.FromMinutes(5),
-            PrepareSchemaIfNecessary = true   // tabloları otomatik oluşturur
-        }));
+//builder.Services.AddHangfire(config => config
+//    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+//    .UseSimpleAssemblyNameTypeSerializer()
+//    .UseRecommendedSerializerSettings()
+//    .UsePostgreSqlStorage(
+//        builder.Configuration.GetConnectionString("PostgreSQL"),
+//        new PostgreSqlStorageOptions
+//        {
+//            QueuePollInterval = TimeSpan.FromSeconds(15),
+//            JobExpirationCheckInterval = TimeSpan.FromHours(1),
+//            CountersAggregateInterval = TimeSpan.FromMinutes(5),
+//            PrepareSchemaIfNecessary = true   // tabloları otomatik oluşturur
+//        }));
 
-builder.Services.AddHangfireServer();
+//builder.Services.AddHangfireServer();
 // ----------
 
 builder.Services.AddControllers();
@@ -109,21 +109,21 @@ builder.Services.AddDependencyResolvers(new ICoreModule[]
 var app = builder.Build();
 
 // ── Hangfire Dashboard 
-app.UseHangfireDashboard("/hangfire");
+//app.UseHangfireDashboard("/hangfire");
 
-var recurringJobs = app.Services.GetRequiredService<IRecurringJobManager>();
+//var recurringJobs = app.Services.GetRequiredService<IRecurringJobManager>();
 
-recurringJobs.AddOrUpdate<ICronJobService>(
-    "daily-log-job",
-    job => job.RunDailyLog(),
-    Cron.Minutely);        // Her gün 00:00
+//recurringJobs.AddOrUpdate<ICronJobService>(
+//    "daily-log-job",
+//    job => job.RunDailyLog(),
+//    Cron.Minutely);        // Her gün 00:00
 
-recurringJobs.AddOrUpdate<ICronJobService>(
-    "hourly-log-job",
-    job => job.RunHourlyLog(),
-    Cron.Hourly);       // Her saat başı
+//recurringJobs.AddOrUpdate<ICronJobService>(
+//    "hourly-log-job",
+//    job => job.RunHourlyLog(),
+//    Cron.Hourly);       // Her saat başı
 
-app.UseSerilogRequestLogging();
+//app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

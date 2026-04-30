@@ -1,6 +1,6 @@
 ﻿using Business.Abstract;
-using Business.CCS.Logger;
 using Business.Constants;
+using Core.CrossCuttingConcerns.Logger;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -44,6 +44,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Vehicle>> GetAll()
         {
+            _logger.Log();
             return new SuccessDataResult<List<Vehicle>>(_vehicleDal.GetAll(),Messages.ApiListed);
         }
 
