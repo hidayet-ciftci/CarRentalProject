@@ -3,6 +3,8 @@ using Business.Concrete;
 using Business.Jobs;
 using Business.ValidationRules.FluentValidation;
 using Core.CrossCuttingConcerns.Logger;
+using Core.CrossCuttingConcerns.Transaction;
+using Core.DataAccess.Transaction;
 using Core.Utilities.IoC;
 using Core.Utilities.Security;
 using DataAccess.Abstract;
@@ -45,6 +47,8 @@ namespace Core.DependencyResolvers
             serviceCollection.AddScoped<ICronJobService, CronJobManager>();
 
             serviceCollection.AddSingleton<ILogger, ConsoleLogger>();
+            serviceCollection.AddScoped<CarRentalContext>();
+            serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
 
         }
     }

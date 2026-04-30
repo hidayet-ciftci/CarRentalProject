@@ -72,5 +72,10 @@ namespace Business.Concrete
             }
             else return new SuccessResult();
         }
+        public IResult AddWithTransaction(Vehicle vehicle)
+        {
+            _vehicleDal.AddWithTransaction(vehicle);
+            return new SuccessResult("transaction ile eklendi");
+        }
     }
 }

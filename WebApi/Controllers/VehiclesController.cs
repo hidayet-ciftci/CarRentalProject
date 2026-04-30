@@ -90,5 +90,19 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [HttpPost("transactionAdd")]
+        public IActionResult AddTransaction(Vehicle vehicle)
+        {
+            try
+            {
+                var result = _vehicleService.AddWithTransaction(vehicle);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

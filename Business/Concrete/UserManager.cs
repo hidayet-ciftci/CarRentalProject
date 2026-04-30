@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.CrossCuttingConcerns.Transaction;
 using Core.Entities.Concrete;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
@@ -16,9 +17,11 @@ namespace Business.Concrete
     public class UserManager : IUserService
     {
         IUserDal _userDal;
-        public UserManager(IUserDal userDal)
+        IUnitOfWork _unitOfWork;
+        public UserManager(IUserDal userDal, IUnitOfWork unitOfWork)
         {
             _userDal = userDal;
+            _unitOfWork = unitOfWork;
         }
         public IResult Add(User user)
         {
@@ -42,6 +45,24 @@ namespace Business.Concrete
         public IDataResult<List<User>> GetAll()
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll(),Messages.ApiListed);
+        }
+        public IDataResult<List<User>> GetAllWithTransaction()
+        {
+            _unitOfWork.BeginTransaction();
+            try
+            {
+                var list = _userDal.GetAll();
+                _unitOfWork.SaveChanges();
+
+                _unitOfWork.Commit();
+                return new SuccessDataResult<List<User>>(list, "Transaction ile cekildi");
+            }
+            catch (Exception)
+            {
+
+                _unitOfWork.Rollback();
+                return new ErrorDataResult<List<User>>(null, "Transaction ile korundu, geri alındi");
+            }
         }
 
         public IDataResult<User> GetOneById(int userId)

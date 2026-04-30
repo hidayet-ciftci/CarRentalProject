@@ -88,5 +88,19 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [HttpGet("getWithTransaction")]
+        public IActionResult GetWithTransaction()
+        {
+            try
+            {
+                var result = _userService.GetAllWithTransaction();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -171,11 +171,12 @@ app.Run();
 // Salt ++
 // database View ++
 // cronjob ++
+// Hangfire ++
 // rabbitMQ loglama sistemi - rebus , redis ,gencay
 // pipeline , CQRS - gencay
-
-// Hangfire?
-
+// middleware 
+// cacheing , performance , transaction
+// trigger
 // ILogger ?
 // Task ?
 

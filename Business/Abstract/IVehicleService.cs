@@ -16,5 +16,7 @@ namespace Business.Abstract
         IResult Update(Vehicle vehicle);
         IDataResult<List<Vehicle>> GetAll();
         IDataResult<Vehicle> GetOneById(int vehicleId);
+
+        IResult AddWithTransaction(Vehicle vehicle);
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Core.DataAccess;
+using Core.Utilities.Results;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,5 +12,6 @@ namespace DataAccess.Abstract
 {
     public interface IVehicleDal : IEntityRepository<Vehicle>
     {
+        IResult AddWithTransaction(Vehicle vehicle);
     }
 }
