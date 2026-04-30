@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.CCS.Logger;
 using Business.Constants;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
@@ -16,9 +17,11 @@ namespace Business.Concrete
     public class VehicleManager : IVehicleService
     {
         IVehicleDal _vehicleDal;
-        public VehicleManager(IVehicleDal vehicleDal)
+        ILogger _logger;
+        public VehicleManager(IVehicleDal vehicleDal,ILogger logger)
         {
             _vehicleDal = vehicleDal;
+            _logger = logger;
         }
         public IResult Add(Vehicle vehicle)
         {
@@ -35,6 +38,7 @@ namespace Business.Concrete
                 return result;
             }
             _vehicleDal.Delete(id);
+            _logger.Log();
             return new SuccessResult(Messages.ApiDeleted);
         }
 
