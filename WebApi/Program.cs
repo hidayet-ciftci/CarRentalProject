@@ -68,10 +68,11 @@ app.Run();
 // pipeline ++ -> Projedeki Akış 
 // MVC ++ -> MVC yapısı Model - View - Controller yapısı ile küçük projelerde işe yarayan
 // direkt istek karşısında html dönen yapı
+// cacheing, transaction ? AOP ? gerekliliği ? ++ -> AOP olmadan , Kodu generic yapıda , service olarak yazıp kullanırız.
+// her business func'i için tekrar yazmak gerekir.
 
 // rabbitMQ loglama sistemi - rebus , redis ,gencay
 // CQRS - gencay
 // Redis ile cache ?
-// cacheing , performance , transaction ? AOP ? gerekliliği ? 
 
 // expo 
