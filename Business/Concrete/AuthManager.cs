@@ -43,7 +43,7 @@ namespace Business.Concrete
                 CreatedTime = DateTime.UtcNow
             };
             _userDal.Add(user);
-            _userDal.AddClaim(user.Id,2);
+            _userDal.AddClaim(user.Id,registerDto.RoleId);
 
             return new SuccessResult("Succesfully Registered with workerRole");
         }

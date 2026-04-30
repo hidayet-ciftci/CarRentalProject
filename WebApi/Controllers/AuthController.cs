@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Dtos.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,7 @@ namespace WebAPI.Controllers
         {
             _authService = authService;
         }
+        [Authorize(Roles = ("Admin"))]
         [HttpPost("register")]
         public IActionResult Register(RegisterDto registerDto)
         {
