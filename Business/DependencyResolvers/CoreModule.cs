@@ -47,6 +47,7 @@ namespace Core.DependencyResolvers
             serviceCollection.AddScoped<ICronJobService, CronJobManager>();
 
             serviceCollection.AddSingleton<ILogger, ConsoleLogger>();
+
             serviceCollection.AddScoped<CarRentalContext>();
             serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
 

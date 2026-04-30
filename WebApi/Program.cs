@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Text;
+using WebAPI.Middlewares;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -126,6 +127,9 @@ var app = builder.Build();
 //app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
+
+app.UseMiddleware<LoglamaMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -169,15 +173,19 @@ app.Run();
 // Bittenler -------------------------------------
 
 // Salt ++
-// database View ++
-// cronjob ++
-// Hangfire ++
+// database View ++ -> Joinler için oluşmuş tablo'yu DTO kullanarak yansıtmak.
+// cronjob ++ -> * * * * * metodu kullanarak server'a zamanlı iş yaptırma
+// Hangfire ++ -> veya quartz.net cronJOB ASP.NET taraflı kullanmak
+// trigger ++ -> SQL Server'a yaz ya da savechanges'i override et.
+// ILogger -> private readonly ILogger<UrunController> _logger;
+// Dependency Injection ile gelir -> UrunController tip 'Den ziyade nereden geldigini belirtmek için kullanilir.
+// Task -> Asenkron yapılar için await ile birlikte kullanılır.
+// Lock -> Multi-Thread işlemlerin birbirlerini engellemek , yapılan işlemi diğer threadlere kapatarak
+// korunmasını saglar.
+
 // rabbitMQ loglama sistemi - rebus , redis ,gencay
 // pipeline , CQRS - gencay
 // middleware 
-// cacheing , performance , transaction
-// trigger
-// ILogger ?
-// Task ?
+// cacheing , performance , transaction ? AOP ? gerekliliği ? 
 
 // expo 
