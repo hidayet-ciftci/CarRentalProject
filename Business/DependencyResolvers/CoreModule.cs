@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.CCC.Cache;
 using Business.CCC.Jobs;
 using Business.Concrete;
 using Business.ValidationRules.FluentValidation;
@@ -24,7 +25,9 @@ namespace Core.DependencyResolvers
     {
         public void Load(IServiceCollection serviceCollection)
         {
-            
+            serviceCollection.AddMemoryCache();
+            serviceCollection.AddSingleton<ICacheService, MemoryCacheService>();
+
             serviceCollection.AddScoped<ICustomerService, CustomerManager>();
             serviceCollection.AddScoped<IValidator<Customer>, CustomerValidator>();
             serviceCollection.AddScoped<ICustomerDal, EfCustomerDal>();
@@ -50,6 +53,8 @@ namespace Core.DependencyResolvers
 
             serviceCollection.AddScoped<CarRentalContext>();
             serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            
 
         }
     }

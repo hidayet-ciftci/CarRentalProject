@@ -1,15 +1,7 @@
-using Business.Jobs;
 using Core.DependencyResolvers;
 using Core.Extensions;
 using Core.Utilities.IoC;
-using Hangfire;
-using Hangfire.PostgreSql;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Serilog;
-using System.Text;
 using WebAPI.Extensions;
-using WebAPI.Middlewares;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -26,7 +18,8 @@ builder.Services.AddDependencyResolvers(new ICoreModule[] { new CoreModule() });
 var app = builder.Build();
 
 // Pipeline
-app.UseCustomMiddlewares();
+
+//app.UseCustomMiddlewares();
 app.UseSwaggerWithUI();
 app.UseHttpsRedirection();
 //app.UseSerilogRequestLogging();
@@ -78,7 +71,7 @@ app.Run();
 
 // rabbitMQ loglama sistemi - rebus , redis ,gencay
 // CQRS - gencay
-
+// Redis ile cache ?
 // cacheing , performance , transaction ? AOP ? gerekliliği ? 
 
 // expo 

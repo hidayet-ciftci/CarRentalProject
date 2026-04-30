@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.CCC.Cache;
 using Business.Constants;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
@@ -17,13 +18,16 @@ namespace Business.Concrete
     public class CustomerManager : ICustomerService
     {
         ICustomerDal _customerDal;
+        ICacheService _cacheService;
+        private const string CacheKey = "products_all";
 
         private readonly IValidator<Customer> _validator;
 
-        public CustomerManager(ICustomerDal customerDal, IValidator<Customer> validator)
+        public CustomerManager(ICustomerDal customerDal, IValidator<Customer> validator,ICacheService cacheService)
         {
             _customerDal = customerDal;
             _validator = validator;
+            _cacheService = cacheService;
         }
         public IResult Add(Customer customer)
         {
@@ -40,6 +44,7 @@ namespace Business.Concrete
                 return new ErrorResult(messages);
             }
             _customerDal.Add(customer);
+            _cacheService.Remove(CacheKey);
             return new SuccessResult(Messages.ApiAdded);
         }
 
@@ -57,7 +62,11 @@ namespace Business.Concrete
 
         public IDataResult<List<Customer>> GetAll()
         {
-            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(),Messages.ApiListed);
+            var cached = _cacheService.Get<List<Customer>>(CacheKey);
+            if (cached != null) return new SuccessDataResult<List<Customer>>(cached,Messages.ApiListed + " from Cache");
+            var data = _customerDal.GetAll();
+            _cacheService.Set(CacheKey, data, TimeSpan.FromMinutes(15));
+            return new SuccessDataResult<List<Customer>>(data,Messages.ApiListed + " from DB");
         }
 
         public IDataResult<Customer> GetOneById(int customerId)
