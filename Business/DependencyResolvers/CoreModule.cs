@@ -1,6 +1,6 @@
 ﻿using Business.Abstract;
+using Business.CCC.Jobs;
 using Business.Concrete;
-using Business.Jobs;
 using Business.ValidationRules.FluentValidation;
 using Core.CrossCuttingConcerns.Logger;
 using Core.CrossCuttingConcerns.Transaction;

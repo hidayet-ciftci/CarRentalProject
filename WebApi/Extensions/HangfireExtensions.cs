@@ -1,4 +1,4 @@
-﻿using Business.Jobs;
+﻿using Business.CCC.Jobs;
 using Hangfire;
 using Hangfire.PostgreSql;
 

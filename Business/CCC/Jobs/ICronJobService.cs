@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Jobs
+namespace Business.CCC.Jobs
 {
     public interface ICronJobService
     {

@@ -71,11 +71,14 @@ app.Run();
 // Dependency Injection ile gelir -> UrunController tip 'Den ziyade nereden geldigini belirtmek için kullanilir.
 // Task -> Asenkron yapılar için await ile birlikte kullanılır.
 // Lock -> Multi-Thread işlemlerin birbirlerini engellemek , aynı anda tek bir işlemin gerçekleşmesini saglar.
-// middleware  -> işlemler arası geçiş. 
+// middleware  -> işlemler arası geçiş. Middleware = pipeline’daki işlem birimi
+// pipeline ++ -> Projedeki Akış 
+// MVC ++ -> MVC yapısı Model - View - Controller yapısı ile küçük projelerde işe yarayan
+// direkt istek karşısında html dönen yapı
 
 // rabbitMQ loglama sistemi - rebus , redis ,gencay
-// pipeline , CQRS - gencay
-// MVC yapısı
+// CQRS - gencay
+
 // cacheing , performance , transaction ? AOP ? gerekliliği ? 
 
 // expo 
