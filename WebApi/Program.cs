@@ -1,8 +1,12 @@
+using Business.Jobs;
 using Core.DependencyResolvers;
 using Core.Extensions;
 using Core.Utilities.IoC;
+using Hangfire;
+using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -11,7 +15,32 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// HangFire, CronJob ile SeriLog services
 
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+
+// SeriLog service
+builder.Host.UseSerilog();
+
+builder.Services.AddHangfire(config => config
+    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+    .UseSimpleAssemblyNameTypeSerializer()
+    .UseRecommendedSerializerSettings()
+    .UsePostgreSqlStorage(
+        builder.Configuration.GetConnectionString("PostgreSQL"),
+        new PostgreSqlStorageOptions
+        {
+            QueuePollInterval = TimeSpan.FromSeconds(15),
+            JobExpirationCheckInterval = TimeSpan.FromHours(1),
+            CountersAggregateInterval = TimeSpan.FromMinutes(5),
+            PrepareSchemaIfNecessary = true   // tabloları otomatik oluşturur
+        }));
+
+builder.Services.AddHangfireServer();
+// ----------
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -79,6 +108,23 @@ builder.Services.AddDependencyResolvers(new ICoreModule[]
 
 var app = builder.Build();
 
+// ── Hangfire Dashboard 
+app.UseHangfireDashboard("/hangfire");
+
+var recurringJobs = app.Services.GetRequiredService<IRecurringJobManager>();
+
+recurringJobs.AddOrUpdate<ICronJobService>(
+    "daily-log-job",
+    job => job.RunDailyLog(),
+    Cron.Minutely);        // Her gün 00:00
+
+recurringJobs.AddOrUpdate<ICronJobService>(
+    "hourly-log-job",
+    job => job.RunHourlyLog(),
+    Cron.Hourly);       // Her saat başı
+
+app.UseSerilogRequestLogging();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -128,5 +174,8 @@ app.Run();
 // pipeline , CQRS - gencay
 
 // Hangfire?
+
+// ILogger ?
+// Task ?
 
 // expo 

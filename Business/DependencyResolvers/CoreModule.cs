@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
+using Business.Jobs;
 using Business.ValidationRules.FluentValidation;
 using Core.Utilities.IoC;
 using Core.Utilities.Security;
@@ -38,6 +39,8 @@ namespace Core.DependencyResolvers
 
             serviceCollection.AddScoped<IAuthService, AuthManager>();
             serviceCollection.AddScoped<JwtHelper>();
+
+            serviceCollection.AddScoped<ICronJobService, CronJobManager>();
 
         }
     }
