@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
         {
             _vehicleService = vehicleService;
         }
-        [Authorize(Roles = ("Admin,Worker"))]
+        [Authorize]
         [HttpGet]
         public IActionResult getAll()
         {
@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [Authorize(Roles = ("Admin,Worker"))]
+        [Authorize]
         [HttpGet("getOneById")]
         public IActionResult getOnebyId(int id)
         {
@@ -96,19 +96,19 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [HttpPost("transactionAdd")]
-        public IActionResult AddTransaction(Vehicle vehicle)
-        {
-            try
-            {
-                var result = _vehicleService.AddWithTransaction(vehicle);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
+        //[HttpPost("transactionAdd")]
+        //public IActionResult AddTransaction(Vehicle vehicle)
+        //{
+        //    try
+        //    {
+        //        var result = _vehicleService.AddWithTransaction(vehicle);
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                throw new Exception(ex.Message);
-            }
-        }
+        //        throw new Exception(ex.Message);
+        //    }
+        //}
     }
 }

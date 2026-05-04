@@ -15,6 +15,7 @@ namespace WebAPI.Controllers
         {
             _serviceRecordService = serviceRecordService;
         }
+        [Authorize]
         [HttpGet]
         public IActionResult getAll()
         {
@@ -29,6 +30,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("getOneById")]
         public IActionResult getOnebyId(int id)
         {
@@ -90,6 +92,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("AllServiceDetails")]
         public IActionResult GetAllDetails()
         {
