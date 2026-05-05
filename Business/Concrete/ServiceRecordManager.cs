@@ -55,6 +55,13 @@ namespace Business.Concrete
             return new SuccessDataResult<ServiceRecord>(_serviceRecordDal.GetOne(s => s.Id == id),Messages.ApiListed);
         }
 
+        public IDataResult<ServiceDetailViewDto> GetOneServiceDetails(string email)
+        {
+            var viewDto = _serviceRecordDal.GetOneServiceDetails(s => s.Email == email);
+            if (viewDto is null) return new ErrorDataResult<ServiceDetailViewDto>(null, Messages.NotFound);
+            return new SuccessDataResult<ServiceDetailViewDto>(viewDto, Messages.ApiListed);
+        }
+
         public IResult Update(ServiceRecord serviceRecord)
         {
             _serviceRecordDal.Update(serviceRecord);

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +20,14 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 return context.Set<ServiceDetailViewDto>().ToList();
                 
+            }
+        }
+
+        public ServiceDetailViewDto GetOneServiceDetails(Expression<Func<ServiceDetailViewDto, bool>> filter)
+        {
+            using (CarRentalContext context = new CarRentalContext())
+            {
+                return context.Set<ServiceDetailViewDto>().SingleOrDefault(filter);
             }
         }
     }

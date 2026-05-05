@@ -18,5 +18,7 @@ namespace Business.Abstract
         IDataResult<ServiceRecord> GetOneById(int ServiceRecordId);
 
         IDataResult<List<ServiceDetailViewDto>> GetAllServiceDetails();
+
+        IDataResult<ServiceDetailViewDto> GetOneServiceDetails(string email);
     }
 }

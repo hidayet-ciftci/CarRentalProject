@@ -92,13 +92,26 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [Authorize]
         [HttpGet("AllServiceDetails")]
         public IActionResult GetAllDetails()
         {
             try
             {
                 var result = _serviceRecordService.GetAllServiceDetails();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+        [HttpPost("OneServiceDetails")]
+        public IActionResult GetOneDetails([FromBody] string email)
+        {
+            try
+            {
+                var result = _serviceRecordService.GetOneServiceDetails(email);
                 return Ok(result);
             }
             catch (Exception ex)
