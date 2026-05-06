@@ -94,6 +94,7 @@ c."Address",
 v."Plate",
 v."Brand",
 v."Color",
+v."VIN_Number",
 (select u."FirstName" || ' ' || u."LastName" as "FullName" from "Users" u where u."Id" = sr."UserId"),
 sr."Description",
 sr."State",
@@ -117,6 +118,7 @@ c."Address",
 v."Plate",
 v."Brand",
 v."Color",
+v."VIN_Number",
 (select u."FirstName" || ' ' || u."LastName" as "employer_Name" from "Users" u where u."Id" = sr."UserId"),
 sr."Description",
 sr."State",
@@ -132,7 +134,7 @@ on sr."VehicleId" = v."Id";
 
 SELECT * FROM "vw_service_detail";
 
-DROP VIEW "vw_OrderSummary";
+DROP VIEW "vw_service_detail";
 
 ALTER VIEW "vw_OrderSummary"
 AS

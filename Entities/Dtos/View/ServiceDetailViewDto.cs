@@ -15,6 +15,7 @@ namespace Entities.Dtos.View
         public string Plate { get; set; }
         public string Brand { get; set; }
         public string Color { get; set; }
+        public string VIN_Number { get; set; }
         public string employer_Name { get; set; }
         public string Description { get; set; }
         public string State { get; set; }
