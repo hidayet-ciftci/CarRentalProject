@@ -96,7 +96,11 @@ v."Brand",
 v."Color",
 (select u."FirstName" || ' ' || u."LastName" as "FullName" from "Users" u where u."Id" = sr."UserId"),
 sr."Description",
-sr."State"
+sr."State",
+sr."Price",
+sr."PlannedEndDate",
+sr."EndDate",
+sr."CreatedTime"
 from "Customers" c 
 join "Vehicles" v 
 on c."Id" = v."CustomerId" 
@@ -115,7 +119,11 @@ v."Brand",
 v."Color",
 (select u."FirstName" || ' ' || u."LastName" as "employer_Name" from "Users" u where u."Id" = sr."UserId"),
 sr."Description",
-sr."State"
+sr."State",
+sr."Price",
+sr."PlannedEndDate",
+sr."EndDate",
+sr."CreatedTime"
 from "Customers" c 
 join "Vehicles" v 
 on c."Id" = v."CustomerId" 

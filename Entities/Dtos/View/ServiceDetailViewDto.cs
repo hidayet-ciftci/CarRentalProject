@@ -18,5 +18,9 @@ namespace Entities.Dtos.View
         public string employer_Name { get; set; }
         public string Description { get; set; }
         public string State { get; set; }
+        public decimal Price { get; set; }
+        public DateTime PlannedEndDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public DateTime CreatedTime { get; set; }
     }
 }
