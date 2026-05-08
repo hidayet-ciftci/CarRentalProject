@@ -42,5 +42,32 @@ namespace DataAccess.Concrete.EntityFramework
                 context.SaveChanges();
             }
         }
+        public void DeleteMany(List<int> ids)
+        {
+            using (CarRentalContext context = new CarRentalContext())
+            {
+                var userIds = ids.Distinct().ToList();
+
+                var userClaims = context.UserOperationClaims
+                    .Where(x => userIds.Contains(x.UserId))
+                    .ToList();
+
+                if (userClaims.Any())
+                {
+                    context.UserOperationClaims.RemoveRange(userClaims);
+                }
+
+                var users = context.Users
+                    .Where(x => userIds.Contains(x.Id))
+                    .ToList();
+
+                if (users.Any())
+                {
+                    context.Users.RemoveRange(users);
+                }
+
+                context.SaveChanges();
+            }
+        }
     }
 }

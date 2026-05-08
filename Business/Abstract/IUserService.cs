@@ -1,4 +1,5 @@
-﻿using Core.Entities.Concrete;
+﻿using Business.Constants;
+using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace Business.Abstract
         IResult Update(User user);
         IDataResult<List<User>> GetAll();
         IDataResult<User> GetOneById(int userId);
-        public IDataResult<List<User>> GetAllWithTransaction();
+        IDataResult<List<User>> GetAllWithTransaction();
+        IResult DeleteManyById(List<int> ids);
+        
     }
 }

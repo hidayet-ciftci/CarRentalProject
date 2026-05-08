@@ -42,6 +42,12 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ApiDeleted);
         }
 
+        public IResult DeleteManyById(List<int> ids)
+        {
+            _userDal.DeleteMany(ids);
+            return new SuccessResult(Messages.ApiDeleted);
+        }
+
         public IDataResult<List<User>> GetAll()
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll(),Messages.ApiListed);

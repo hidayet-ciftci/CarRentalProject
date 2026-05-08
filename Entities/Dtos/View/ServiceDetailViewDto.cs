@@ -12,7 +12,7 @@ namespace Entities.Dtos.View
         public string? PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public string Plate { get; set; }
+        public string Plate { get; set; } 
         public string Brand { get; set; }
         public string Color { get; set; }
         public string VIN_Number { get; set; }

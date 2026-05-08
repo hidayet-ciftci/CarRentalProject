@@ -12,5 +12,6 @@ namespace DataAccess.Abstract
     {
         List<OperationClaim> GetClaims(User user);
         void AddClaim(int userId,int roleId);
+        void DeleteMany(List<int> ids);
     }
 }

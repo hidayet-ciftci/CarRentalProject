@@ -16,7 +16,6 @@ namespace WebAPI.Controllers
         {
             _userService = userService;
         }
-        [Authorize(Roles = ("Admin"))]
         [HttpGet]
         public IActionResult getAll()
         {
@@ -32,8 +31,8 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [Authorize(Roles =("Admin"))]
-        [HttpGet("getOneById")]
+
+        [HttpGet("user-detail/{id}")]
         public IActionResult getOnebyId(int id)
         {
             try
@@ -47,7 +46,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [Authorize(Roles = ("Admin"))]
+
         [HttpPost]
         public IActionResult Add(User user)
         {
@@ -61,7 +60,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [Authorize(Roles = ("Admin"))]
+
         [HttpDelete]
         public IActionResult Delete(int id)
         {
@@ -76,7 +75,21 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [Authorize(Roles = ("Admin"))]
+
+        [HttpDelete("delete-many")]
+        public IActionResult DeleteMany([FromBody] List<int> ids)
+        {
+            try
+            {
+                var result = _userService.DeleteManyById(ids);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         [HttpPut]
         public IActionResult Update(User user)
         {
@@ -106,5 +119,19 @@ namespace WebAPI.Controllers
         //        throw new Exception(ex.Message);
         //    }
         //}
+        [Authorize]
+        [HttpGet("Me")]
+        public IActionResult getMe()
+        {
+            try
+            {
+                var result = "ok";
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

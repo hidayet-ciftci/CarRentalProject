@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
         {
             _vehicleService = vehicleService;
         }
-        [Authorize]
+
         [HttpGet]
         public IActionResult getAll()
         {
@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [Authorize]
+
         [HttpGet("getOneById")]
         public IActionResult getOnebyId(int id)
         {
@@ -48,7 +48,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [Authorize(Roles = ("Admin,Worker"))]
+
         [HttpPost]
         public IActionResult Add(Vehicle vehicle)
         {
@@ -64,7 +64,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [Authorize(Roles = ("Admin,Worker"))]
+
         [HttpDelete]
         public IActionResult Delete(int id)
         {
@@ -80,7 +80,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [Authorize(Roles = ("Admin,Worker"))]
+
         [HttpPut]
         public IActionResult Update(Vehicle vehicle)
         {

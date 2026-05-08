@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
         {
             _authService = authService;
         }
-        [Authorize(Roles = ("Admin"))]
+
         [HttpPost("register")]
         public IActionResult Register(RegisterDto registerDto)
         {
