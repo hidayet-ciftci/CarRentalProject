@@ -11,7 +11,7 @@ using System.Transactions;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfVehicelDal : EfEntityRepositoryBase<Vehicle,CarRentalContext>,IVehicleDal
+    public class EfVehicelDal : EfEntityRepositoryBase<Vehicle, CarRentalContext>, IVehicleDal
     {
         private readonly CarRentalContext _context;
 
@@ -34,6 +34,34 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 transaction.Rollback();
                 return new ErrorResult("transaction basarisiz");
+            }
+        }
+
+        public void DeleteMany(List<int> ids)
+        {
+            using (CarRentalContext context = new CarRentalContext())
+            {
+                var vehicleIds = ids.Distinct().ToList();
+
+                var vehicles = context.Vehicles
+                    .Where(v => vehicleIds.Contains(v.Id))
+                    .ToList();
+
+                var serviceRecords = context.ServiceRecords
+                    .Where(sr => vehicleIds.Contains(sr.VehicleId))
+                    .ToList();
+
+                if (serviceRecords.Any())
+                {
+                    context.ServiceRecords.RemoveRange(serviceRecords);
+                }
+
+                if (vehicles.Any())
+                {
+                    context.Vehicles.RemoveRange(vehicles);
+                }
+
+                context.SaveChanges();
             }
         }
     }

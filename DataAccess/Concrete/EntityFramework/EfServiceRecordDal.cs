@@ -14,6 +14,25 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfServiceRecordDal : EfEntityRepositoryBase<ServiceRecord, CarRentalContext>, IServiceRecordDal
     {
+        public void DeleteMany(List<int> ids)
+        {
+            using (CarRentalContext context = new CarRentalContext())
+            {
+                var serviceRecordsIds = ids.Distinct().ToList();
+
+                var serviceRecords = context.ServiceRecords
+                    .Where(x => serviceRecordsIds.Contains(x.Id))
+                    .ToList();
+
+                if (serviceRecords.Any())
+                {
+                    context.ServiceRecords.RemoveRange(serviceRecords);
+                }
+
+                context.SaveChanges();
+            }
+        }
+
         public List<ServiceDetailViewDto> GetAllServiceDetails()
         {
             using (CarRentalContext context = new CarRentalContext())

@@ -77,5 +77,11 @@ namespace Business.Concrete
             _vehicleDal.AddWithTransaction(vehicle);
             return new SuccessResult("transaction ile eklendi");
         }
+
+        public IResult DeleteManyById(List<int> ids)
+        {
+            _vehicleDal.DeleteMany(ids);
+            return new SuccessResult(Messages.ApiDeleted);
+        }
     }
 }

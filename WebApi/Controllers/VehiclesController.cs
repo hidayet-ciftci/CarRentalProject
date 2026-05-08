@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpGet("getOneById")]
+        [HttpGet("vehicle-detail/{id}")]
         public IActionResult getOnebyId(int id)
         {
             try
@@ -110,5 +110,19 @@ namespace WebAPI.Controllers
         //        throw new Exception(ex.Message);
         //    }
         //}
+
+        [HttpDelete("delete-many")]
+        public IActionResult DeleteMany([FromBody] List<int> ids)
+        {
+            try
+            {
+                var result = _vehicleService.DeleteManyById(ids);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

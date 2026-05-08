@@ -14,5 +14,6 @@ namespace DataAccess.Abstract
     {
         List<ServiceDetailViewDto> GetAllServiceDetails();
         ServiceDetailViewDto GetOneServiceDetails(Expression<Func<ServiceDetailViewDto, bool>> filter);
+        void DeleteMany(List<int> ids);
     }
 }

@@ -18,5 +18,6 @@ namespace Business.Abstract
         IDataResult<Vehicle> GetOneById(int vehicleId);
 
         IResult AddWithTransaction(Vehicle vehicle);
+        IResult DeleteManyById(List<int> ids);
     }
 }

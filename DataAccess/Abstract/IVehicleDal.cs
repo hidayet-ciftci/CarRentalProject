@@ -13,5 +13,6 @@ namespace DataAccess.Abstract
     public interface IVehicleDal : IEntityRepository<Vehicle>
     {
         IResult AddWithTransaction(Vehicle vehicle);
+        void DeleteMany(List<int> ids);
     }
 }

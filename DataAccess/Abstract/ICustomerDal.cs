@@ -13,5 +13,6 @@ namespace DataAccess.Abstract
     public interface ICustomerDal : IEntityRepository<Customer>
     {
         List<CustomerDetailDto> GetCustomerDetail();
+        void DeleteMany(List<int> ids);
     }
 }

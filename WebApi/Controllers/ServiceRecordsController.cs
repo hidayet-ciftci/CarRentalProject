@@ -31,7 +31,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpGet("getOneById")]
+        [HttpGet("service-record-detail/{id}")]
         public IActionResult getOnebyId(int id)
         {
             try
@@ -117,6 +117,20 @@ namespace WebAPI.Controllers
             catch (Exception ex)
             {
 
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpDelete("delete-many")]
+        public IActionResult DeleteMany([FromBody] List<int> ids)
+        {
+            try
+            {
+                var result = _serviceRecordService.DeleteManyById(ids);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
                 throw new Exception(ex.Message);
             }
         }

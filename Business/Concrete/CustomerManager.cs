@@ -4,6 +4,7 @@ using Business.Constants;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Entities.Dtos;
 using FluentValidation;
@@ -82,6 +83,7 @@ namespace Business.Concrete
         public IResult Update(Customer customer)
         {
             _customerDal.Update(customer);
+            _cacheService.Remove(CacheKey);
             return new SuccessResult(Messages.ApiUpdated);
         }
 
@@ -133,6 +135,13 @@ namespace Business.Concrete
                 return new ErrorResult("Boyle bir customer yok");
             }
             else return new SuccessResult();
+        }
+
+        public IResult DeleteManyById(List<int> ids)
+        {
+            _customerDal.DeleteMany(ids);
+            _cacheService.Remove(CacheKey);
+            return new SuccessResult(Messages.ApiDeleted);
         }
     }
 }

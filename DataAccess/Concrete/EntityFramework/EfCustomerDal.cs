@@ -14,6 +14,44 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCustomerDal : EfEntityRepositoryBase<Customer, CarRentalContext>, ICustomerDal
     {
+        public void DeleteMany(List<int> ids)
+        {
+            using (CarRentalContext context = new CarRentalContext())
+            {
+                var customerIds = ids.Distinct().ToList();
+
+                var customers = context.Customers
+                    .Where(x => customerIds.Contains(x.Id))
+                    .ToList();
+
+                var vehicles = context.Vehicles
+                    .Where(v => customerIds.Contains(v.CustomerId))
+                    .ToList();
+
+                var vehicleIds = vehicles.Select(v => v.Id).ToList();
+
+                var serviceRecords = context.ServiceRecords
+                    .Where(sr=>vehicleIds.Contains(sr.VehicleId));
+
+                if (serviceRecords.Any())
+                {
+                    context.ServiceRecords.RemoveRange(serviceRecords);
+                }
+                
+                if (vehicles.Any())
+                {
+                    context.Vehicles.RemoveRange(vehicles);
+                }
+
+                if (customers.Any())
+                {
+                    context.Customers.RemoveRange(customers);
+                }
+
+                context.SaveChanges();
+            }
+        }
+
         public List<CustomerDetailDto> GetCustomerDetail()
         {
             using (CarRentalContext context = new CarRentalContext())
