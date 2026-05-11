@@ -57,6 +57,15 @@ namespace DataAccess.Concrete.EntityFramework
                     context.UserOperationClaims.RemoveRange(userClaims);
                 }
 
+                var serviceRecords = context.ServiceRecords
+                    .Where(sr => userIds.Contains(sr.UserId))
+                    .ToList();
+
+                if (serviceRecords.Any())
+                {
+                    context.ServiceRecords.RemoveRange(serviceRecords);
+                }
+
                 var users = context.Users
                     .Where(x => userIds.Contains(x.Id))
                     .ToList();

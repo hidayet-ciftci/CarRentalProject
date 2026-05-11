@@ -75,7 +75,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-        [Authorize]
+        
         [HttpDelete("delete-many")]
         public IActionResult DeleteMany([FromBody] List<int> ids)
         {

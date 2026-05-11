@@ -45,6 +45,8 @@ Create Table "ServiceRecords" (
 	"Price" Decimal(8,2) default 0,
 	"CreatedTime" Timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+
 -- enum yerine yeni tablo
 Create Table "OperationClaims" (
 	"Id" SERIAL NOT NULL UNIQUE PRIMARY KEY,
@@ -69,7 +71,7 @@ INSERT INTO "Users" ("FirstName","LastName","Email","PasswordHash","PhoneNumber"
 INSERT INTO "ServiceRecords" (
 	"VehicleId","UserId","Description",
 	"State","Price") 
-		VALUES (2,1,'Vites sorunu var','Yeni Basladi',100);
+		VALUES (3,24,'Vites2 sorunu var','Yeni Basladi',101);
 		
 INSERT INTO "OperationClaims" ("Name") VALUES ('Admin') , ('Worker') , ('Manager');
 
@@ -85,6 +87,7 @@ Select * from "ServiceRecords";
 Select * FROM "UserOperationClaims";
 Select * from "OperationClaims";
 
+Delete FROM "Vehicles" WHERE "CustomerId" = 2;
 
 Select 
 c."FirstName"|| ' ' ||c."LastName" as "FullName",
