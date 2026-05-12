@@ -1,5 +1,6 @@
 ﻿using Core.DataAccess;
 using Core.Entities.Concrete;
+using Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace DataAccess.Abstract
         List<OperationClaim> GetClaims(User user);
         void AddClaim(int userId,int roleId);
         void DeleteMany(List<int> ids);
+        List<UserRoleDto> getUsersWithRole();
     }
 }

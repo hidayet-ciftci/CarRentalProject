@@ -6,6 +6,7 @@ using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
+using Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,9 +49,9 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ApiDeleted);
         }
 
-        public IDataResult<List<User>> GetAll()
+        public IDataResult<List<UserRoleDto>> GetAll()
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetAll(),Messages.ApiListed);
+            return new SuccessDataResult<List<UserRoleDto>>(_userDal.getUsersWithRole(),Messages.ApiListed);
         }
         public IDataResult<List<User>> GetAllWithTransaction()
         {

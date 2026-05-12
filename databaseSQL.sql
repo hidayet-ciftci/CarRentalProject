@@ -28,7 +28,9 @@ Create table "Users" (
 	"PasswordHash" varchar(250) NOT NULL,
 	"PhoneNumber" varchar(15) NOT NULL UNIQUE,
 	"Status" BOOL NOT NULL DEFAULT '1',
-	"CreatedTime" Timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+	"CreatedTime" Timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
+	"RefreshToken" varchar,
+	"RefreshTokenExpiry" Timestamptz
 );
 -- 1 -> Admin -> Hepsi
 -- 2 -> Tamirci -> ServiceRecord
@@ -151,10 +153,18 @@ SELECT
 FROM Orders o
 INNER JOIN Customers c ON o.CustomerId = c.Id;
 
-ALTER TABLE "ServiceRecords"
-ALTER COLUMN "CreatedTime"
+ALTER TABLE "Users"
+ALTER COLUMN "RefreshTokenExpiry"
 TYPE timestamptz
-USING "CreatedTime" AT TIME ZONE 'UTC';
+USING "RefreshTokenExpiry" AT TIME ZONE 'UTC';
 
+Delete FROM "ServiceRecords" Where "VehicleId" = 14;
 
 --DROP TABLE "OperationClaims";
+
+
+SELECT u.*,oc."Name" FROM "Users" AS u
+JOIN "UserOperationClaims" AS uoc
+ON u."Id" = uoc."UserId"
+JOIN "OperationClaims" AS oc
+ON uoc."OperationClaimId" =  oc."Id";

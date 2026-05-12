@@ -1,6 +1,7 @@
 ﻿using Core.DataAccess.EfRepositoryContext;
 using Core.Entities.Concrete;
 using DataAccess.Abstract;
+using Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,8 +78,33 @@ namespace DataAccess.Concrete.EntityFramework
                     context.Users.RemoveRange(users);
                     context.SaveChanges();
                 }
+            }
+        }
 
-                
+        public List<UserRoleDto> getUsersWithRole()
+        {
+             using (CarRentalContext context = new CarRentalContext())
+            {
+                var result = from u in context.Users
+                              join uc in context.UserOperationClaims
+                              on u.Id equals uc.UserId
+                              join oc in context.OperationClaims
+                              on uc.OperationClaimId equals oc.Id
+                              select new UserRoleDto
+                              {
+                                  Id = u.Id,
+                                  FirstName = u.FirstName,
+                                  LastName = u.LastName,
+                                  Email = u.Email,
+                                  PasswordHash = u.PasswordHash,
+                                  PhoneNumber = u.PhoneNumber,
+                                  Status = u.Status,
+                                  CreatedTime = u.CreatedTime,
+                                  RefreshToken = u.RefreshToken,
+                                  RefreshTokenExpiry = u.RefreshTokenExpiry,
+                                  RoleName = oc.Name
+                              };
+                return result.ToList();
             }
         }
     }
