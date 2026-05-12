@@ -54,14 +54,16 @@ namespace DataAccess.Concrete.EntityFramework
                 if (serviceRecords.Any())
                 {
                     context.ServiceRecords.RemoveRange(serviceRecords);
+                    context.SaveChanges();
                 }
 
                 if (vehicles.Any())
                 {
                     context.Vehicles.RemoveRange(vehicles);
+                    context.SaveChanges();
                 }
 
-                context.SaveChanges();
+                
             }
         }
     }

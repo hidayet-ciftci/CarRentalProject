@@ -6,6 +6,7 @@ using Entities.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,24 +32,29 @@ namespace DataAccess.Concrete.EntityFramework
                 var vehicleIds = vehicles.Select(v => v.Id).ToList();
 
                 var serviceRecords = context.ServiceRecords
-                    .Where(sr=>vehicleIds.Contains(sr.VehicleId));
+                    .Where(sr=>vehicleIds.Contains(sr.VehicleId)).ToList();
+
+                
 
                 if (serviceRecords.Any())
                 {
                     context.ServiceRecords.RemoveRange(serviceRecords);
+                    context.SaveChanges();
                 }
                 
                 if (vehicles.Any())
                 {
                     context.Vehicles.RemoveRange(vehicles);
+                    context.SaveChanges();
                 }
 
                 if (customers.Any())
                 {
                     context.Customers.RemoveRange(customers);
+                    context.SaveChanges();
                 }
 
-                context.SaveChanges();
+                
             }
         }
 

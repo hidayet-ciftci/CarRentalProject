@@ -60,7 +60,7 @@ Create Table "UserOperationClaims" (
 );
 
 INSERT INTO "Customers" ("FirstName","LastName","PhoneNumber","Email","Address") 
-	VALUES ('ali','veli','+9054111111234','customer2@email.com','Ankara Turkiye');
+	VALUES ('alib','velic','+905416112234','customer124@email.com','Ankara Turkiye');
 
 INSERT INTO "Vehicles" ("CustomerId","Plate","Brand","Color","VIN_Number") 
 	VALUES (2,'34AB723','Mercedes','Siyah','12AB453İ');
@@ -150,6 +150,11 @@ SELECT
     o.Status
 FROM Orders o
 INNER JOIN Customers c ON o.CustomerId = c.Id;
+
+ALTER TABLE "ServiceRecords"
+ALTER COLUMN "CreatedTime"
+TYPE timestamptz
+USING "CreatedTime" AT TIME ZONE 'UTC';
 
 
 --DROP TABLE "OperationClaims";
