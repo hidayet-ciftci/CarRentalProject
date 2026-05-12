@@ -17,9 +17,8 @@ namespace Core.Entities.Concrete
         public string PhoneNumber { get; set; }
         public bool Status { get; set; }
         public string? RefreshToken { get; set; }
-        public DateTime? RefreshTokenExpiry { get; set; }
-        public DateTime CreatedTime { get; set; }
-
+        public DateTimeOffset? RefreshTokenExpiry { get; set; }
+        public DateTimeOffset CreatedTime { get; set; }
 
     }
 }

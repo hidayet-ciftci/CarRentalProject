@@ -15,6 +15,6 @@ namespace Entities.Concrete
         public string Brand { get; set; }
         public string Color { get; set; }
         public string VIN_Number { get; set; }
-        public DateTime CreatedTime { get; set; }
+        public DateTimeOffset CreatedTime { get; set; }
     }
 }
