@@ -32,13 +32,12 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-
+        [Authorize(Roles ="Worker")]
         [HttpGet("vehicle-detail/{id}")]
         public IActionResult getOnebyId(int id)
         {
             try
             {
-
                 var result = _vehicleService.GetOneById(id);
                 return Ok(result);
             }

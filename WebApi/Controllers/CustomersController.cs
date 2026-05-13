@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
                 throw new Exception(ex.Message);
             }
         }
-
+        [Authorize]
         [HttpGet("customer-detail/{id}")]
         public IActionResult getOnebyId(int id)
         {
