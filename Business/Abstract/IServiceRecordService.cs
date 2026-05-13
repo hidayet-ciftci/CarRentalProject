@@ -19,7 +19,7 @@ namespace Business.Abstract
 
         IDataResult<List<ServiceDetailViewDto>> GetAllServiceDetails();
 
-        IDataResult<ServiceDetailViewDto> GetOneServiceDetails(string email);
+        IDataResult<List<ServiceDetailViewDto>> GetOneServiceDetails(string email);
         IResult DeleteManyById(List<int> ids);
     }
 }

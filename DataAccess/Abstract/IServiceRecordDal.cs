@@ -13,7 +13,7 @@ namespace DataAccess.Abstract
     public interface IServiceRecordDal : IEntityRepository<ServiceRecord>
     {
         List<ServiceDetailViewDto> GetAllServiceDetails();
-        ServiceDetailViewDto GetOneServiceDetails(Expression<Func<ServiceDetailViewDto, bool>> filter);
+        List<ServiceDetailViewDto> GetOneServiceDetails(Expression<Func<ServiceDetailViewDto, bool>> filter);
         void DeleteMany(List<int> ids);
     }
 }

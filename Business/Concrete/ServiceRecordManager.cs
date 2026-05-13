@@ -61,11 +61,11 @@ namespace Business.Concrete
             return new SuccessDataResult<ServiceRecord>(_serviceRecordDal.GetOne(s => s.Id == id),Messages.ApiListed);
         }
 
-        public IDataResult<ServiceDetailViewDto> GetOneServiceDetails(string email)
+        public IDataResult<List<ServiceDetailViewDto>> GetOneServiceDetails(string email)
         {
             var viewDto = _serviceRecordDal.GetOneServiceDetails(s => s.Email == email);
-            if (viewDto is null) return new ErrorDataResult<ServiceDetailViewDto>(null, Messages.NotFound);
-            return new SuccessDataResult<ServiceDetailViewDto>(viewDto, Messages.ApiListed);
+            if (viewDto is null) return new ErrorDataResult<List<ServiceDetailViewDto>>(null, Messages.NotFound);
+            return new SuccessDataResult<List<ServiceDetailViewDto>>(viewDto, Messages.ApiListed);
         }
 
         public IResult Update(ServiceRecord serviceRecord)

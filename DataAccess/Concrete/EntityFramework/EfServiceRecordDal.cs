@@ -42,11 +42,11 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
-        public ServiceDetailViewDto GetOneServiceDetails(Expression<Func<ServiceDetailViewDto, bool>> filter)
+        public List<ServiceDetailViewDto> GetOneServiceDetails(Expression<Func<ServiceDetailViewDto, bool>> filter)
         {
             using (CarRentalContext context = new CarRentalContext())
             {
-                return context.Set<ServiceDetailViewDto>().SingleOrDefault(filter);
+                return context.Set<ServiceDetailViewDto>().Where(filter).ToList();
             }
         }
     }
